@@ -2,15 +2,28 @@
 
 namespace App\Domain;
 
+use App\Domain\Shared\EntityId;
+
 class Customer
 {
     public function __construct(
+        private EntityId $customerId,
         private string $email,
         private string $lastName,
         private string $firstName,
         private string $phone
     ) {
     }
+
+    /**
+     * @return EntityId
+     */
+    public function getCustomerId(): EntityId
+    {
+        return $this->customerId;
+    }
+
+
 
     /**
      * @return string
