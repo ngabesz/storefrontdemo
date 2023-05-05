@@ -25,40 +25,63 @@ class Checkout
     ) {
     }
 
+    /**
+     * @return EntityId
+     */
     public function getCheckoutId(): EntityId
     {
         return $this->checkoutId;
     }
 
-    public function getCheckoutStatus(): CheckoutStatus
+    /**
+     * @return \App\Domain\CheckoutStatus
+     */
+    public function getCheckoutStatus(): \App\Domain\CheckoutStatus
     {
         return $this->checkoutStatus;
     }
 
-    public function getCustomer(): Customer
+    /**
+     * @return \App\Domain\Customer|null
+     */
+    public function getCustomer(): ?\App\Domain\Customer
     {
         return $this->customer;
     }
 
-    public function getShippingAddress(): ShippingAddress
+    /**
+     * @return \App\Domain\ShippingAddress|null
+     */
+    public function getShippingAddress(): ?\App\Domain\ShippingAddress
     {
         return $this->shippingAddress;
     }
 
-    public function getBillingAddress(): BillingAddress
+    /**
+     * @return \App\Domain\BillingAddress|null
+     */
+    public function getBillingAddress(): ?\App\Domain\BillingAddress
     {
         return $this->billingAddress;
     }
 
-    public function getShippingMethod(): ShippingMethod
+    /**
+     * @return \App\Domain\ShippingMethod|null
+     */
+    public function getShippingMethod(): ?\App\Domain\ShippingMethod
     {
         return $this->shippingMethod;
     }
 
-    public function getPaymentMethod(): PaymentMethod
+    /**
+     * @return \App\Domain\PaymentMethod|null
+     */
+    public function getPaymentMethod(): ?\App\Domain\PaymentMethod
     {
         return $this->paymentMethod;
     }
+
+
 
     public function checkoutTotal(): CheckoutTotal
     {

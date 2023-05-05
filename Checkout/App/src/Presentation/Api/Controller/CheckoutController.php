@@ -9,7 +9,7 @@ use App\Application\SaveShippingAddress\SaveShippingAddressCommand;
 use App\Application\SaveBillingAddress\SaveBillingAddressCommand;
 use App\Application\SaveShippingMethod\SaveShippingMethodCommand;
 use App\Application\SavePaymentMethod\SavePaymentMethodCommand;
-use Nyholm\Psr7\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\HandleTrait;
