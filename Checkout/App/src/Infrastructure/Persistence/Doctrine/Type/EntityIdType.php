@@ -20,6 +20,9 @@ class EntityIdType extends BinaryType
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
+        if ($value === null) {
+            return null;
+        }
         return new EntityId(UuidV4::fromBinary($value)->toRfc4122());
     }
 

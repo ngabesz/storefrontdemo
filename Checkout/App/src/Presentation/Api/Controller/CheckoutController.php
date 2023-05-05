@@ -71,11 +71,11 @@ class CheckoutController extends AbstractController
         return new Response($jsonresponse);
     }
 
-    public function saveShippingAddress(Request $request)
+    public function saveShippingAddress(string $checkoutId, Request $request)
     {
         $post = json_decode($request->getContent());
         $command = new SaveShippingAddressCommand(
-            $post->checkoutId,
+            $checkoutId,
             $post->address,
             $post->country,
             $post->postcode,
