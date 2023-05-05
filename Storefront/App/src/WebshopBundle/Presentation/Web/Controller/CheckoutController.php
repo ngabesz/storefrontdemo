@@ -9,8 +9,13 @@ use App\WebshopBundle\Application\Cart\Exception\CartNotFoundException;
 use App\WebshopBundle\Application\Cart\GetCart\Dto\GetCartOutput;
 use App\WebshopBundle\Application\Cart\GetCart\GetCartQuery;
 use App\WebshopBundle\Application\Cart\RemoveItemFromCart\RemoveItemFromCartCommand;
+use App\WebshopBundle\Application\Checkout\AddShippingAddress\AddShippingAddressCommand;
 use App\WebshopBundle\Application\Checkout\CreateCheckout\CreateCheckoutQuery;
-use App\WebshopBundle\Application\Checkout\Customer\CreateCustomerQuery;
+use App\WebshopBundle\Application\Checkout\Customer\CreateCustomerCommand;
+use App\WebshopBundle\Application\Checkout\GetCheckout\GetCheckoutQuery;
+use App\WebshopBundle\Application\Payment\GetPayment\GetPaymentQuery;
+use App\WebshopBundle\Application\Shipping\GetShipping\GetShippingQuery;
+use App\WebshopBundle\Domain\Model\Checkout\Dto\Address;
 use App\WebshopBundle\Domain\Model\Checkout\Dto\Customer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -33,19 +38,16 @@ class CheckoutController extends AbstractController
 
     public function index(Request $request)
     {
-
         if ($request->cookies->has('cart_id')) {
             $checkout = $this->handle(new CreateCheckoutQuery($request->cookies->get('cart_id')));
+            $request->cookies->set('checkoutId', $checkout->getCheckoutId());
+            return $this->render('@webshop/customer_space/checkout.html.twig', []);
         }
-        $request->cookies->set('checkoutId', $checkout->getCheckoutId());
-        return $this->render('@webshop/customer_space/checkout.html.twig', [
-            'checkoutId' => $checkout->getCheckoutId()
-        ]);
+        $this->redirect('/cart');
     }
 
     public function addCustomer(Request $request)
     {
-
         if (!$request->cookies->has('checkoutId')) {
             $this->redirect('/checkout');
         }
@@ -55,7 +57,82 @@ class CheckoutController extends AbstractController
             $request->get("lastName",null),
             $request->get("phone",null)
         );
-        $checkout = $this->handle(new CreateCustomerQuery($customer));
-//        return redire;
+        $this->handle(new CreateCustomerCommand($customer));
+
+        $this->handle(new AddShippingAddressCommand(
+            $request->cookies->get('checkoutId'),
+            new Address(
+                $request->get("address",null),
+                $request->get("city",null),
+                $request->get("postcode",null),
+                $request->get("country",null),
+            )
+        ));
+
+        $this->handle(new AddPaymentAddressCommand(
+            $request->cookies->get('checkoutId'),
+            new Address(
+                $request->get("address",null),
+                $request->get("city",null),
+                $request->get("postcode",null),
+                $request->get("country",null),
+            )
+        ));
+        $this->redirect('/checkout/step/2');
+    }
+
+    public function createShippingMethod(Request $request)
+    {
+        if (!$request->cookies->has('checkoutId')) {
+            $this->redirect('/checkout');
+        }
+
+        $checkout = $this->handle(new GetCheckoutQuery($request->cookies->get('checkoutId')));
+
+        $shippingMethods = $this->handle(new GetShippingQuery($checkout->getId()));
+
+        return $this->render('@webshop/customer_space/checkoutStep2.html.twig', ['shippingMethods'=> $shippingMethods]);
+    }
+
+    public function addShippingMethod(Request $request)
+    {
+        if (!$request->cookies->has('checkoutId')) {
+            $this->redirect('/checkout');
+        }
+
+        $this->handle(new AddShippingMethodCommand(
+            $request->cookies->get('checkoutId'),
+            $request->cookies->get('shippingMethodId')
+        ));
+
+        $this->redirect('/checkout/step/3');
+    }
+
+    public function createPaymentMethod(Request $request)
+    {
+        if (!$request->cookies->has('checkoutId')) {
+            $this->redirect('/checkout');
+        }
+
+        $checkout = $this->handle(new GetCheckoutQuery($request->cookies->get('checkoutId')));
+
+        $paymentMethods = $this->handle(new GetPaymentQuery($checkout->getId()));
+
+        return $this->render('@webshop/customer_space/checkoutStep3.html.twig', ['paymentMethods'=> $paymentMethods]);
+    }
+
+    public function addPaymentMethod(Request $request)
+    {
+        if (!$request->cookies->has('checkoutId')) {
+            $this->redirect('/checkout');
+        }
+
+
+        $this->handle(new AddPaymentMethodCommand(
+            $request->cookies->get('checkoutId'),
+            $request->cookies->get('paymentMethodId')
+        ));
+
+        $this->redirect('/checkout/step/3');
     }
 }

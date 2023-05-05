@@ -15,7 +15,7 @@ class CreateCustomerHandler
         $this->checkoutRepository = $checkoutRepositoryInterface;
     }
 
-    public function __invoke(CreateCustomerQuery $createCustomerQuery){
+    public function __invoke(CreateCustomerCommand $createCustomerQuery){
         return $this->checkoutRepository->addCustomer($createCustomerQuery->getCustomer());
     }
 }

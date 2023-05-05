@@ -2,7 +2,7 @@
 
 namespace App\WebshopBundle\Application\Checkout\ShippingMethod;
 
-use App\WebshopBundle\Application\Checkout\Customer\CreateCustomerQuery;
+use App\WebshopBundle\Application\Checkout\Customer\CreateCustomerCommand;
 use App\WebshopBundle\Domain\Model\Checkout\CheckoutRepositoryInterface;
 
 class CreateShippingMethodHandler

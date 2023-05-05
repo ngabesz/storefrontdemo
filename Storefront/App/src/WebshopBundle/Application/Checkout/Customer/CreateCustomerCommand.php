@@ -6,7 +6,7 @@ namespace App\WebshopBundle\Application\Checkout\Customer;
 
 use App\WebshopBundle\Domain\Model\Checkout\Dto\Customer;
 
-class CreateCustomerQuery
+class CreateCustomerCommand
 {
     private Customer $customer;
 
