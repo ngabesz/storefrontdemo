@@ -39,9 +39,7 @@ POST /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed/customer
 response
 [source,json]
 ----
-  {
-    "msg": "OK"
-  }
+include::./api/response/checkout.json[]
 ----
 
 == Save Shipping Address
@@ -63,9 +61,7 @@ Content-Type: application/json
 response:
 [source,json]
 ----
-{
-  "msg": "OK"
-}
+include::./api/response/checkout.json[]
 ----
 
 == Save Payment Address
@@ -86,9 +82,7 @@ Content-Type: application/json
 response:
 [source,json]
 ----
-{
-  "msg": "OK"
-}
+include::./api/response/checkout.json[]
 ----
 
 == Save Shipping Method
@@ -106,10 +100,7 @@ POST /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed/shipping-method
 response:
 [source,json]
 ----
-
-{
-    "msg": "OK"
-}
+include::./api/response/checkout.json[]
 ----
 
 == Save Payment Method
@@ -127,10 +118,7 @@ POST /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed/payment-method
 response:
 [source,json]
 ----
-
-{
-    "msg": "OK"
-}
+include::./api/response/checkout.json[]
 ----
 
 == Confirm
@@ -143,9 +131,7 @@ POST /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed/confirm
 response
 [source,json]
 ----
-  {
-    "msg": "OK"
-  }
+include::./api/response/checkout.json[]
 ----
 
 == Get checkout
@@ -155,55 +141,10 @@ response
 GET /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed
 ----
 
+response:
 [source,json]
 ----
-{
-  "checkoutId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
-  "status": "PENDING",
-  "customer": {
-    "email": "asd@asd.hu",
-    "lastName": "lastname",
-    "firstName": "firstname",
-    "phone": "phone"
-  },
-  "shippingAddress": {
-    "address": "some str 123",
-    "city": "Gotham",
-    "postcode": "1233",
-    "country": "HU"
-  },
-  "billingAddress": {
-    "address": "some str 123",
-    "city": "Gotham",
-    "postcode": "1233",
-    "country": "HU"
-  },
-  "shippingMethod": {
-    "shippingMethodId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
-    "shippingMethodName": "GLS",
-    "shippingFee": 3123
-  },
-  "paymentMethod": {
-    "paymentMethodId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
-    "paymentMethodName": "BARION",
-    "paymentFee": 123
-  },
-  "checkoutTotal": {
-    "value": 123.345,
-    "currency": "HUF"
-  },
-  "cart": {
-    "cartId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
-    "items": [
-      {
-        "id": "7b6c9fa4-8713-496b-821c-f468d56ad02c",
-        "name": "Lorem ipsum dolor sit",
-        "quantity": 2,
-        "price": 100
-      }
-    ]
-  }
-}
+include::./api/response/checkout.json[]
 ----
 
 == Statuses
