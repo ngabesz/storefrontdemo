@@ -8,6 +8,7 @@ use App\Domain\Checkout\Checkout;
 use App\Domain\Customer\Customer;
 use App\Domain\Customer\CustomerIdProviderInterface;
 use App\Domain\Customer\InvalidEmailException;
+use App\Domain\Product\Product;
 use App\Domain\Shipping\ShippingAddress;
 use App\Domain\Shipping\ShippingMethod;
 
@@ -58,7 +59,7 @@ class OrderFactory
                 $checkout->getPaymentMethod()->getPaymentFee()
         );
 
-        return new Order(
+        $order = new Order(
                 $orderId,
                 $customer,
                 $shippingAddress,
@@ -66,5 +67,17 @@ class OrderFactory
                 $billingAddress,
                 $billingMethod
         );
+
+        foreach ($checkout->getCart()->getItems() as $checkoutItem) {
+            $product = new Product(
+                    $checkoutItem->getId(),
+                    $checkoutItem->getName(),
+                    $checkoutItem->getQuantity(),
+                    $checkoutItem->getPrice()
+            );
+            $order->addProduct($product);
+        }
+
+        return $order;
     }
 }
