@@ -24,7 +24,54 @@ class CheckoutAdapter implements CheckoutAdapterInterface
 
     public function getCheckoutById(string $checkoutId): Checkout
     {
-        $rawCheckout = $this->client->get($checkoutId);
+//        $rawCheckout = $this->client->get($checkoutId);
+        $rawCheckout = [
+                'checkoutId' => 'asd',
+                'status' => 'COMPLETED',
+                'customer' => [
+                        'email' => "asd@gmail.com",
+                        'lastName' => "lastName",
+                        'firstName' => "firstName",
+                        'phone' => "phone",
+                ],
+                'shippingAddress' => [
+                        'address' => 'address',
+                        'city' => 'city',
+                        'postcode' => 'postcode',
+                        'country' => 'country',
+                ],
+                'billingAddress' => [
+                        'address' => 'address',
+                        'city' => 'city',
+                        'postcode' => 'postcode',
+                        'country' => 'country',
+                ],
+                'shippingMethod' => [
+                        'shippingMethodId' => 'shippingMethodId',
+                        'shippingMethodName' => 'shippingMethodName',
+                        'shippingFee' => 23,
+                ],
+                'paymentMethod' => [
+                        'paymentMethodId' => 'paymentMethodId',
+                        'paymentMethodName' => 'paymentMethodName',
+                        'paymentFee' => 12,
+                ],
+                'cart' => [
+                        'cartId' => 'aSasd',
+                        'total' => 123,
+                        'items' => [
+                                [
+                                        'id' => 'id',
+                                        'sku' => 'sku',
+                                        'name' => 'name',
+                                        'quantity' => 2,
+                                        'price' => 20.3,
+                                        'total' => 456,
+                                ]
+                        ]
+                ]
+        ];
+
         $rawCustomer = $rawCheckout['customer'];
         $rawShippingAddress = $rawCheckout['shippingAddress'];
         $rawBillingAddress = $rawCheckout['billingAddress'];
@@ -33,6 +80,7 @@ class CheckoutAdapter implements CheckoutAdapterInterface
         $rawCart = $rawCheckout['cart'];
 
         // mock ---------
+
 //        $checkoutId = 'Asd';
 //        $status = 'COMPLETED';
 //        $customer = new Customer('easd@gmail.com', 'lastname', 'firstname', 'phone');
