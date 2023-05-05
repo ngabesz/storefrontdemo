@@ -58,3 +58,9 @@ services:
         - name: messenger.message_handler
           bus: command.bus
           handles: App\Application\SaveBillingAddress\SaveBillingAddressCommand
+
+    App\Application\GetCheckout\GetCheckoutHandler:
+      tags:
+        - name: messenger.message_handler
+          bus: command.bus
+          handles: App\Application\GetCheckout\GetCheckoutQuery
