@@ -23,8 +23,50 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\Application\Example\ExampleHandler:
+#    App\Application\Example\ExampleHandler:
+#        tags:
+#            - name: messenger.message_handler
+#              bus: command.bus
+#              handles: App\Application\Example\ExampleQuery
+#
+    App\Domain\CheckoutRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\CheckoutRepository'
+    App\Domain\Api\CartApiInterface: '@App\Infrastructure\Adapter\CartApi\CartApi'
+    App\Domain\Api\ShippingApiInterface: '@App\Infrastructure\Adapter\ShippingApi\ShippingApi'
+    App\Domain\Api\PaymentApiInterface: '@App\Infrastructure\Adapter\PaymentApi\PaymentApi'
+
+    App\Application\CreateCheckout\CreateCheckoutHandler:
         tags:
             - name: messenger.message_handler
               bus: command.bus
-              handles: App\Application\Example\ExampleQuery
+              handles: App\Application\CreateCheckout\CreateCheckoutCommand
+
+    App\Application\SaveCustomer\SaveCustomerHandler:
+        tags:
+            - name: messenger.message_handler
+              bus: command.bus
+              handles: App\Application\SaveCustomer\SaveCustomerCommand
+
+    App\Application\SaveShippingAddress\SaveShippingAddressHandler:
+      tags:
+        - name: messenger.message_handler
+          bus: command.bus
+          handles: App\Application\SaveShippingAddress\SaveShippingAddressCommand
+
+
+    App\Application\SaveBillingAddress\SaveBillingAddressHandler:
+      tags:
+        - name: messenger.message_handler
+          bus: command.bus
+          handles: App\Application\SaveBillingAddress\SaveBillingAddressCommand
+
+    App\Application\GetCheckout\GetCheckoutHandler:
+      tags:
+        - name: messenger.message_handler
+          bus: command.bus
+          handles: App\Application\GetCheckout\GetCheckoutQuery
+
+    App\Application\ConfirmCheckout\ConfirmCheckoutHandler:
+        tags:
+            -   name: messenger.message_handler
+                bus: command.bus
+                handles: App\Application\ConfirmCheckout\ConfirmCheckoutCommand
