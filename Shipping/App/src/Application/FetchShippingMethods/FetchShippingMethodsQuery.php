@@ -9,7 +9,7 @@ class FetchShippingMethodsQuery
         private readonly ?string $shippingMethodId = null
     ) {}
 
-    public function getCartTotal(): float
+    public function getCartTotal(): ?float
     {
         return $this->cartTotal;
     }

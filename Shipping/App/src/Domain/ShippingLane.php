@@ -27,8 +27,8 @@ class ShippingLane
         return $this->cost;
     }
 
-    public function getShippingMethodId(): string
+    public function getShippingMethod(): ShippingMethod
     {
-        return $this->shippingMethodId;
+        return $this->shippingMethod;
     }
 }

@@ -2,8 +2,11 @@
 
 namespace App\Presentation\Api\Controller;
 
+use App\Application\CreateShippingMethod\CreateShippingMethodCommand;
+use App\Application\DeleteShippingMethod\DeleteShippingMethodCommand;
 use App\Application\FetchShippingMethods\FetchShippingMethodsQuery;
 use App\Application\GetShippingMethodById\GetShippingMethodByIdQuery;
+use App\Domain\ShippingMethod;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,11 +22,13 @@ class ShippingMethodsController extends AbstractController
         $this->messageBus = $messageBus;
     }
 
-    public function fetchShippingMethods(): JsonResponse
+    public function fetchShippingMethods(Request $request): JsonResponse
     {
+        $cartTotal = $request->get("cartTotal");
+
         return $this->json(
             $this->handle(
-                new FetchShippingMethodsQuery(200.0)
+                new FetchShippingMethodsQuery($cartTotal)
             )
         );
     }
@@ -38,10 +43,45 @@ class ShippingMethodsController extends AbstractController
             ]);
         }
 
-        return $this->json(
-            $this->handle(
-                new GetShippingMethodByIdQuery($shippingMethodId)
+        try {
+            $response = $this->json(
+                $this->handle(
+                    new GetShippingMethodByIdQuery($shippingMethodId)
+                )
+            );
+        } catch (\Throwable) {
+            return new JsonResponse(["error"]);
+        }
+        return $response;
+    }
+
+    public function createShippingMethod(Request $request): JsonResponse
+    {
+        $requestBody = json_decode($request->getContent(), true);
+
+        /** @var ShippingMethod $created */
+        $created = $this->handle(
+            new CreateShippingMethodCommand(
+                $requestBody["name"],
+                $requestBody["description"],
+                $requestBody["shippingLanes"],
+                $requestBody["isEnabled"]
             )
         );
+
+        return new JsonResponse(['id' => $created->getId()], 201);
+    }
+
+    public function deleteShippingMethod(string $shippingMethodId): JsonResponse
+    {
+//        try {
+//        } catch (\Throwable) {
+////            return new JsonResponse(["error"]);
+//        }
+        $this->handle(
+            new DeleteShippingMethodCommand($shippingMethodId)
+        );
+
+        return new JsonResponse([], 204);
     }
 }

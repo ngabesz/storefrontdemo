@@ -6,7 +6,7 @@ use App\Domain\ShippingLane;
 use App\Domain\ShippingMethod;
 use App\Domain\ShippingMethodRepositoryInterface;
 
-class InMemoryShippingMethodRepository implements ShippingMethodRepositoryInterface
+class InMemoryShippingMethodRepository
 {
     public function fetchShippingMethods(float $getCartTotal): array
     {
