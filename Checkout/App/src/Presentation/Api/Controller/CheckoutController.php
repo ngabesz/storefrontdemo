@@ -6,6 +6,7 @@ use App\Application\CreateCheckout\CreateCheckoutCommand;
 use App\Application\SaveCustomer\SaveCustomerCommand;
 use App\Application\SaveShippingAddress\SaveShippingAddressCommand;
 use App\Application\SaveBillingAddress\SaveBillingAddressCommand;
+use App\Application\SaveShippingMethod\SaveShippingMethodCommand;
 use Nyholm\Psr7\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,7 +105,15 @@ class CheckoutController extends AbstractController
 
     public function saveShippingMethod(Request $request)
     {
+        $post = json_decode($request->getContent());
+        $command = new SaveShippingMethodCommand($post->checkoutId);
 
+        $response = $this->handle(
+            $command
+        );
+
+        $jsonresponse = $this->serializer->serialize($response,'json');
+        return new Response($jsonresponse);
     }
 
     public function confirm(Request $request)
