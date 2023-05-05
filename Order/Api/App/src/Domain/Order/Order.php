@@ -21,12 +21,12 @@ class Order
     private $products;
 
     public function __construct(
-        string $id,
-        Customer $customer,
-        ShippingAddress $shippingAddress,
-        ShippingMethod $shippingMethod,
-        BillingAddress $billingAddress,
-        BillingMethod $billingMethod,
+            string $id,
+            Customer $customer,
+            ShippingAddress $shippingAddress,
+            ShippingMethod $shippingMethod,
+            BillingAddress $billingAddress,
+            BillingMethod $billingMethod,
     ) {
         $this->id = $id;
         $this->customer = $customer;
@@ -74,13 +74,19 @@ class Order
 
     public function addProduct(Product $product): void
     {
+        $product->setId($this->getId() . '_' . $product->getId());
         $this->products[] = $product;
         $product->setOrder($this);
     }
 
     public function getTotal(): float
     {
-        //TODO: calculate total
-        return 0;
+        $sumOfProductPrices = 0;
+        foreach ($this->products as $product) {
+            $sumOfProductPrices += $product->getGrossPrice() * $product->getQuantity();
+        }
+
+        return $sumOfProductPrices + $this->getShippingMethod()
+                        ->getGrossPrice() + $this->getBillingMethod()->getGrossPrice();
     }
 }

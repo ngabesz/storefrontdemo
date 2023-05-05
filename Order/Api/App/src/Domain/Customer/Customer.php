@@ -16,6 +16,7 @@ class Customer
      * @param string $lastName
      * @param string $email
      * @param string $phoneNumber
+     * @throws InvalidEmailException
      */
     public function __construct(string $id, string $firstName, string $lastName, string $email, string $phoneNumber)
     {
