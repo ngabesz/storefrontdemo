@@ -13,7 +13,8 @@ class CartItem
         private string $name,
         private int $quantity,
         private float $price,
-        private float $total
+        private float $total,
+        private Cart $cart
     ) {
     }
 
@@ -52,4 +53,11 @@ class CartItem
         return $this->externalId;
     }
 
+    /**
+     * @return Cart
+     */
+    public function getCart(): Cart
+    {
+        return $this->cart;
+    }
 }
