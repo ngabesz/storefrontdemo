@@ -23,6 +23,11 @@ save_billing_address:
     controller: App\Presentation\Api\Controller\CheckoutController::saveBillingAddress
     methods:    [POST]
 
+save_shipping_method:
+    path: /api/checkout/{checkoutId}/shipping-method
+    controller: App\Presentation\Api\Controller\CheckoutController::saveShippingMethod
+    methods:    [POST]
+
 save_payment_method:
     path: /api/checkout/{checkoutId}/payment-method
     controller: App\Presentation\Api\Controller\CheckoutController::savePaymentMethod
