@@ -27,7 +27,7 @@ class CheckoutAdapter implements CheckoutAdapterInterface
 //        $rawCheckout = $this->client->getCheckoutById($checkoutId);
 
         $checkoutId = 'Asd';
-        $status = 'start';
+        $status = 'COMPLETED';
         $customer = new Customer('easd@gmail.com', 'lastname', 'firstname', 'phone');
         $shippingAddress = new ShippingAddress('address', 'city', 'postcode', 'country');
         $billingAddress = new BillingAddress('address', 'city', 'postcode', 'country');
