@@ -29,6 +29,8 @@ services:
 #              bus: command.bus
 #              handles: App\Application\Example\ExampleQuery
 #
+    App\Domain\CheckoutRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\CheckoutRepository'
+
     App\Application\CreateCheckout\CreateCheckoutHandler:
         tags:
             - name: messenger.message_handler

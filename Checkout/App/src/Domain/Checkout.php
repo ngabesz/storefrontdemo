@@ -17,7 +17,6 @@ class Checkout
         private EntityId $checkoutId,
         private CheckoutStatus $checkoutStatus,
         private Cart $cart,
-        private ?CheckoutTotal $checkoutTotal = null,
         private ?Customer $customer = null,
         private ?ShippingAddress $shippingAddress = null,
         private ?BillingAddress $billingAddress = null,
@@ -61,9 +60,11 @@ class Checkout
         return $this->paymentMethod;
     }
 
-    public function getCheckoutTotal(): CheckoutTotal
+    public function checkoutTotal(): CheckoutTotal
     {
-        return $this->checkoutTotal;
+        return $this->cart->getTotal() +
+            ($this->shippingMethod->getShippingFee() ?? 0) +
+            ($this->paymentMethod->getPaymentFee() ?? 0);
     }
 
     public function getCart(): Cart
