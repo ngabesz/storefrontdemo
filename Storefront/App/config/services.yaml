@@ -51,5 +51,10 @@ services:
         arguments:
             - 'http://storefront_nginx/dummy'
 
+    App\WebshopBundle\Infrastructure\Shipping\HttpShippingRepository:
+        arguments:
+            - 'http://storefront_nginx/dummy'
+
+
 
 
