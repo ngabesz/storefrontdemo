@@ -11,6 +11,7 @@ use App\WebshopBundle\Application\Cart\GetCart\GetCartQuery;
 use App\WebshopBundle\Application\Cart\RemoveItemFromCart\RemoveItemFromCartCommand;
 use App\WebshopBundle\Application\Checkout\AddShippingAddress\AddShippingAddressCommand;
 use App\WebshopBundle\Application\Checkout\CreateCheckout\CreateCheckoutQuery;
+use App\WebshopBundle\Application\Checkout\CreateCheckout\Dto\CreateCheckoutOutput;
 use App\WebshopBundle\Application\Checkout\Customer\CreateCustomerCommand;
 use App\WebshopBundle\Application\Checkout\GetCheckout\GetCheckoutQuery;
 use App\WebshopBundle\Application\Checkout\PaymentMethod\CreatePaymentMethodQuery;
@@ -40,11 +41,14 @@ class CheckoutController extends AbstractController
     public function index(Request $request)
     {
         if ($request->cookies->has('cart_id')) {
-            $checkout = $this->handle(new CreateCheckoutQuery($request->cookies->get('cart_id')));
-            $request->cookies->set('checkoutId', $checkout->getCheckoutId());
-            return $this->render('@webshop/customer_space/checkout.html.twig', []);
+            /** @var CreateCheckoutOutput $checkoutOutput */
+            $checkoutOutput = $this->handle(new CreateCheckoutQuery($request->cookies->get('cart_id')));
+            $response = $this->render('@webshop/customer_space/checkout.html.twig', []);
+            $response->headers->setCookie(Cookie::create('checkoutId', $checkoutOutput->getCheckoutId()));
+            return $response;
         }
-        $this->redirect('/cart');
+
+        return new RedirectResponse('/cart');
     }
 
     public function addCustomer(Request $request)
