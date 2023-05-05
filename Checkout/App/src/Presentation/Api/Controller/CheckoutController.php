@@ -3,6 +3,7 @@
 namespace App\Presentation\Api\Controller;
 
 use App\Application\CreateCheckout\CreateCheckoutCommand;
+use App\Application\SaveCustomer\SaveCustomerCommand;
 use App\Application\SaveShippingAddress\SaveShippingAddressCommand;
 use App\Application\SaveBillingAddress\SaveBillingAddressCommand;
 use Nyholm\Psr7\Request;
@@ -41,7 +42,21 @@ class CheckoutController extends AbstractController
 
     public function saveCustomer(Request $request)
     {
+        $post = json_decode($request->getContent());
+        $command = new SaveCustomerCommand(
+            $post->checkoutId,
+            $post->email,
+            $post->lastName,
+            $post->firstName,
+            $post->phone
+        );
 
+        $response = $this->handle(
+            $command
+        );
+
+        $jsonresponse = $this->serializer->serialize($response,'json');
+        return new Response($jsonresponse);
     }
 
     public function saveShippingAddress(Request $request)
