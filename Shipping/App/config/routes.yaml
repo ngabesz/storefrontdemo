@@ -3,6 +3,14 @@ example_api:
     controller: App\Presentation\Api\Controller\ExampleController::index
     methods:    [GET]
 
+fetch_shipping_methods:
+    path: /shipping-methods
+    controller: App\Presentation\Api\Controller\ShippingMethodsController::fetchShippingMethods
+
+get_shipping_method_by_id:
+    path: /shipping-methods/{shippingMethodId}
+    controller: App\Presentation\Api\Controller\ShippingMethodsController::getShippingMethodById
+
 admin:
     path: /admin
     controller: App\Presentation\Api\Controller\AdminController::index
