@@ -22,7 +22,11 @@
         </tr>
         <tr>
             <td>Shipping method:</td>
-            <td>{{ order.shippingMethod.code }} {{ order.shippingMethod.grossPrice }}Ft</td>
+            <td>{{ order.shippingMethod.name }} {{ order.shippingMethod.code }} {{ order.shippingMethod.grossPrice }}Ft</td>
+        </tr>
+        <tr>
+            <td>Billing method:</td>
+            <td>{{ order.billingMethod.name }} {{ order.billingMethod.code }} {{ order.billingMethod.grossPrice }}Ft</td>
         </tr>
 
           <tr>
@@ -53,7 +57,7 @@ export default {
   methods: {
     getData(id) {
       this.$http.get(
-          "http://localhost:8090/order/orders/"+id
+          "http://localhost:8090/order/api/orders/"+id
       )
       .then(response => {
         this.order = response.data;

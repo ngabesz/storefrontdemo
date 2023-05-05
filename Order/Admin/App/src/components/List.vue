@@ -18,7 +18,7 @@ export default {
         async getData() {
             try {
                 const response = await this.$http.get(
-                    "http://localhost:8090/order/orders"
+                    "http://localhost:8090/order/api/orders"
                 );
 
                 this.orders = response.data.orders;
