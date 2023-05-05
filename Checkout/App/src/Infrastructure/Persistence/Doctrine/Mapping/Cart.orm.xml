@@ -6,7 +6,7 @@
 
     <entity name="App\Domain\Cart" table="cart">
         <id name="cartId" type="entity_id" column="cart_id" unique="true"/>
-        <field name="cartTotal" type="decimal" column="cart_total"/>
+        <field name="cartTotal" type="float" column="cart_total"/>
     </entity>
 
 </doctrine-mapping>
