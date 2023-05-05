@@ -5,9 +5,9 @@ namespace App\WebshopBundle\Domain\Model\Checkout;
 use App\WebshopBundle\Domain\Exception\DomainException;
 use App\WebshopBundle\Domain\Model\Checkout\Dto\Address;
 use App\WebshopBundle\Domain\Model\Checkout\Dto\CheckoutTotal;
+use App\WebshopBundle\Domain\Model\Checkout\Dto\Customer;
 use App\WebshopBundle\Domain\Model\Checkout\Dto\PaymentMethod;
 use App\WebshopBundle\Domain\Model\Checkout\Dto\ShippingMethod;
-use App\WebshopBundle\Domain\Model\Customer\Customer;
 
 interface CheckoutRepositoryInterface
 {
