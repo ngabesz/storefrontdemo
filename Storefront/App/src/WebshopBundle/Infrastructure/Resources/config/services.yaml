@@ -77,7 +77,7 @@ services:
     App\WebshopBundle\Application\Checkout\Customer\CreateCustomerHandler:
         tags:
             - name: messenger.message_handler
-              handles: App\WebshopBundle\Application\Checkout\Customer\CreateCustomerQuery
+              handles: App\WebshopBundle\Application\Checkout\Customer\CreateCustomerCommand
 
 
     App\WebshopBundle\Application\Shipping\GetShipping\GetShippingHandler:

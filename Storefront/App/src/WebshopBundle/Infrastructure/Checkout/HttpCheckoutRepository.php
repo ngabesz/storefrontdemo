@@ -70,7 +70,7 @@ class HttpCheckoutRepository implements CheckoutRepositoryInterface
         $checkout->setCustomer($customer);
         return $checkout;
     }
-    public function addShippingAddress(Address $address): Checkout
+    public function addShippingAddress(string $checkoutId, Address $address): Checkout
     {
         return new Checkout();
     }
