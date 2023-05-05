@@ -5,6 +5,7 @@ namespace App\Domain;
 class ShippingLane
 {
     public function __construct(
+        private readonly string $shippingMethodId,
         private readonly float $minGrossPrice,
         private readonly float $maxGrossPrice,
         private readonly float $cost,
@@ -23,5 +24,10 @@ class ShippingLane
     public function getCost(): float
     {
         return $this->cost;
+    }
+
+    public function getShippingMethodId(): string
+    {
+        return $this->shippingMethodId;
     }
 }

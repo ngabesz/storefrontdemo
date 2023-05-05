@@ -1,0 +1,13 @@
+<doctrine-mapping>
+    <entity name="App\Domain\ShippingLane" table="shipping_method">
+        <field name="shipping_method_id"  type="string "/>
+        <field name="minGrossValue" type="decimal"/>
+        <field name="maxGrossValue"  type="decimal" />
+        <field name="cost" type="decimal" />
+        <many-to-one field="shipping_method" target-entity="App\Entity\ShippingMethod" inversed-by="shipping_lanes">
+            <join-columns>
+                <join-column name="shipping_method_id" referenced-column-name="id" />
+            </join-columns>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
