@@ -23,3 +23,8 @@ Content-Type: application/json
 
 <> 2023-05-05T181616.500.html
 <> 2023-05-05T181315.500.html
+
+###
+
+GET http://localhost:8090/checkout/api/checkout/8ebc790b-f34a-4a5c-bbc5-dbb661eb57f9
+Content-Type: application/json

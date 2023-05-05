@@ -39,10 +39,9 @@ class CheckoutController extends AbstractController
         return new Response($jsonresponse);
     }
 
-    public function getCheckout(Request $request)
+    public function getCheckout(string $checkoutId)
     {
-        $post = json_decode($request->getContent());
-        $query = new GetCheckoutQuery($post->checkoutId);
+        $query = new GetCheckoutQuery($checkoutId);
 
         $response = $this->handle(
             $query
