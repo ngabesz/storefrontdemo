@@ -30,19 +30,9 @@ class Checkout
         return $this->checkoutId;
     }
 
-    public function setCheckoutId(EntityId $checkoutId): void
-    {
-        $this->checkoutId = $checkoutId;
-    }
-
     public function getCheckoutStatus(): CheckoutStatus
     {
         return $this->checkoutStatus;
-    }
-
-    public function setCheckoutStatus(CheckoutStatus $checkoutStatus): void
-    {
-        $this->checkoutStatus = $checkoutStatus;
     }
 
     public function getCustomer(): Customer
@@ -50,19 +40,9 @@ class Checkout
         return $this->customer;
     }
 
-    public function setCustomer(Customer $customer): void
-    {
-        $this->customer = $customer;
-    }
-
     public function getShippingAddress(): Address
     {
         return $this->shippingAddress;
-    }
-
-    public function setShippingAddress(Address $shippingAddress): void
-    {
-        $this->shippingAddress = $shippingAddress;
     }
 
     public function getBillingAddress(): Address
@@ -70,19 +50,9 @@ class Checkout
         return $this->billingAddress;
     }
 
-    public function setBillingAddress(Address $billingAddress): void
-    {
-        $this->billingAddress = $billingAddress;
-    }
-
     public function getShippingMethod(): ShippingMethod
     {
         return $this->shippingMethod;
-    }
-
-    public function setShippingMethod(ShippingMethod $shippingMethod): void
-    {
-        $this->shippingMethod = $shippingMethod;
     }
 
     public function getPaymentMethod(): PaymentMethod
@@ -90,30 +60,14 @@ class Checkout
         return $this->paymentMethod;
     }
 
-    public function setPaymentMethod(PaymentMethod $paymentMethod): void
-    {
-        $this->paymentMethod = $paymentMethod;
-    }
-
     public function getCheckoutTotal(): CheckoutTotal
     {
         return $this->checkoutTotal;
-    }
-
-    public function setCheckoutTotal(CheckoutTotal $checkoutTotal): void
-    {
-        $this->checkoutTotal = $checkoutTotal;
     }
 
     public function getCart(): Cart
     {
         return $this->cart;
     }
-
-    public function setCart(Cart $cart): void
-    {
-        $this->cart = $cart;
-    }
-
 
 }
