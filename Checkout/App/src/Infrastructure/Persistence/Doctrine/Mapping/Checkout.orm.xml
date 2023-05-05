@@ -6,7 +6,7 @@
 
     <entity name="App\Domain\Checkout" table="checkout">
         <id name="checkoutId" type="entity_id" column="checkout_id" unique="true"/>
-        <field name="checkoutStatus" type="string" column="ckecout_status" enum-type="App\Domain\CheckoutStatus" />
+        <field name="checkoutStatus" type="string" column="checkout_status" enum-type="App\Domain\CheckoutStatus" />
         <one-to-one field="customer" target-entity="Customer">
             <join-column name="customer_id" referenced-column-name="customer_id" />
             <cascade>
@@ -27,6 +27,18 @@
         </one-to-one>
         <one-to-one field="cart" target-entity="Cart">
             <join-column name="cart_id" referenced-column-name="cart_id" />
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="shippingMethod" target-entity="ShippingMethod">
+            <join-column name="shipping_method_id" referenced-column-name="shipping_method_id" />
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="paymentMethod" target-entity="PaymentMethod">
+            <join-column name="payment_method_id" referenced-column-name="payment_method_id" />
             <cascade>
                 <cascade-all/>
             </cascade>
