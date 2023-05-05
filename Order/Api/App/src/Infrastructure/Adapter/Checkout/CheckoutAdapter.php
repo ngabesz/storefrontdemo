@@ -30,6 +30,7 @@ class CheckoutAdapter implements CheckoutAdapterInterface
         $rawBillingAddress = $rawCheckout['billingAddress'];
         $rawShippingMethod = $rawCheckout['shippingMethod'];
         $rawPaymentMethod = $rawCheckout['paymentMethod'];
+        $rawCart = $rawCheckout['cart'];
 
         // mock ---------
 //        $checkoutId = 'Asd';
@@ -74,7 +75,7 @@ class CheckoutAdapter implements CheckoutAdapterInterface
 
         $items = [];
 
-        foreach ($rawCheckout['cart']['items'] as $item) {
+        foreach ($rawCart['items'] as $item) {
             $items[] = new CartItem(
                     $item['id'],
                     $item['sku'],
@@ -85,7 +86,7 @@ class CheckoutAdapter implements CheckoutAdapterInterface
             );
         }
 
-        $cart = new Cart($rawCheckout['cart']['cartId'], $items, $rawCheckout['cart']['total']);
+        $cart = new Cart($rawCart['cartId'], $items, $rawCart['total']);
 
         return new Checkout(
                 $checkoutId,
