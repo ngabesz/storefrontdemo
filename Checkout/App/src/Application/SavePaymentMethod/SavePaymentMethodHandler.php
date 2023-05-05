@@ -14,7 +14,7 @@ class SavePaymentMethodHandler
 {
     public function __construct(
         private CheckoutRepositoryInterface $checkoutRepository,
-        private PaymentApiInterface $shippingApi
+        private PaymentApiInterface $paymentApi
     ){}
 
     public function __invoke(SavePaymentMethodCommand $command): Checkout
@@ -24,7 +24,7 @@ class SavePaymentMethodHandler
             throw new ApplicationException('checkout not found');
         }
 
-        $paymentMethod = $this->shippingApi->getPaymentMethod($command->externalPaymentMethodId);
+        $paymentMethod = $this->paymentApi->getPaymentMethod($command->externalPaymentMethodId);
 
         $checkout->setPaymentMethod($paymentMethod);
         $this->checkoutRepository->updateCheckout($checkout);
