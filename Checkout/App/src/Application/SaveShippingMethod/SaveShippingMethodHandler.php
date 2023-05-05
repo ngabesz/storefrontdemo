@@ -1,34 +1,30 @@
 <?php
 
-namespace App\Application\SaveCustomer;
+namespace App\Application\SaveShippingMethod;
 
 use App\Application\Exception\ApplicationException;
+use App\Domain\Api\ShippingApiInterface;
+use App\Domain\Checkout;
 use App\Domain\CheckoutRepositoryInterface;
-use App\Domain\Customer;
 use App\Domain\Shared\EntityId;
-use App\Domain\Shared\EntityIdGeneratorInterface;
 
-class SaveCustomerHandler
+class SaveShippingMethodHandler
 {
     public function __construct(
         private CheckoutRepositoryInterface $checkoutRepository,
-        private EntityIdGeneratorInterface $entityIdGenerator
+        private ShippingApiInterface $shippingApi
     ){}
 
-    public function __invoke(SaveCustomerCommand $command)
+    public function __invoke(SaveShippingMethodCommand $command): Checkout
     {
         $checkout = $this->checkoutRepository->findCheckout(new EntityId($command->checkoutId));
         if ($checkout === null) {
             throw new ApplicationException('checkout not found');
         }
-        $customer = new Customer(
-            $this->entityIdGenerator->generate(),
-            $command->email,
-            $command->lastName,
-            $command->firstName,
-            $command->phone
-        );
-        $checkout->setCustomer($customer);
+
+        $shippingMethod = $this->shippingApi->getShippingMethod($command->externalShippingMethodId);
+
+        $checkout->setShippingMethod($shippingMethod);
         $this->checkoutRepository->updateCheckout($checkout);
         return $checkout;
     }

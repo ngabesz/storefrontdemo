@@ -1,34 +1,36 @@
 <?php
 
-namespace App\Application\SaveCustomer;
+namespace App\Application\SaveShippingAddress;
 
 use App\Application\Exception\ApplicationException;
+use App\Application\SaveShippingAddress\SaveShippingAddressCommand;
 use App\Domain\CheckoutRepositoryInterface;
-use App\Domain\Customer;
 use App\Domain\Shared\EntityId;
 use App\Domain\Shared\EntityIdGeneratorInterface;
+use App\Domain\ShippingAddress;
 
-class SaveCustomerHandler
+class SaveShippingAddressHandler
 {
+
     public function __construct(
         private CheckoutRepositoryInterface $checkoutRepository,
         private EntityIdGeneratorInterface $entityIdGenerator
     ){}
 
-    public function __invoke(SaveCustomerCommand $command)
+    public function __invoke(SaveShippingAddressCommand $command)
     {
         $checkout = $this->checkoutRepository->findCheckout(new EntityId($command->checkoutId));
         if ($checkout === null) {
             throw new ApplicationException('checkout not found');
         }
-        $customer = new Customer(
+        $shippingAddress = new ShippingAddress(
             $this->entityIdGenerator->generate(),
-            $command->email,
-            $command->lastName,
-            $command->firstName,
-            $command->phone
+            $command->address,
+            $command->country,
+            $command->postcode,
+            $command->city
         );
-        $checkout->setCustomer($customer);
+        $checkout->setShippingAddress($shippingAddress);
         $this->checkoutRepository->updateCheckout($checkout);
         return $checkout;
     }

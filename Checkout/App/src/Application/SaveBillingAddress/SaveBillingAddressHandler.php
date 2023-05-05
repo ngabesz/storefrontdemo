@@ -1,34 +1,35 @@
 <?php
 
-namespace App\Application\SaveCustomer;
+namespace App\Application\SaveBillingAddress;
 
 use App\Application\Exception\ApplicationException;
+use App\Application\SaveBillingAddress\SaveBillingAddressCommand;
 use App\Domain\CheckoutRepositoryInterface;
-use App\Domain\Customer;
 use App\Domain\Shared\EntityId;
 use App\Domain\Shared\EntityIdGeneratorInterface;
+use App\Domain\BillingAddress;
 
-class SaveCustomerHandler
+class SaveBillingAddressHandler
 {
     public function __construct(
         private CheckoutRepositoryInterface $checkoutRepository,
         private EntityIdGeneratorInterface $entityIdGenerator
     ){}
 
-    public function __invoke(SaveCustomerCommand $command)
+    public function __invoke(SaveBillingAddressCommand $command)
     {
         $checkout = $this->checkoutRepository->findCheckout(new EntityId($command->checkoutId));
         if ($checkout === null) {
             throw new ApplicationException('checkout not found');
         }
-        $customer = new Customer(
+        $billingAddress = new BillingAddress(
             $this->entityIdGenerator->generate(),
-            $command->email,
-            $command->lastName,
-            $command->firstName,
-            $command->phone
+            $command->address,
+            $command->country,
+            $command->postcode,
+            $command->city
         );
-        $checkout->setCustomer($customer);
+        $checkout->setBillingAddress($billingAddress);
         $this->checkoutRepository->updateCheckout($checkout);
         return $checkout;
     }

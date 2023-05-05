@@ -64,7 +64,7 @@ response:
 include::./api/response/checkout.json[]
 ----
 
-== Save Payment Address
+== Save Billing Address
 request:
 [source,httprequest]
 ----

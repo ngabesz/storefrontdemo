@@ -4,6 +4,7 @@ namespace App\Infrastructure\Persistence\Doctrine\Repository;
 
 use App\Domain\Checkout;
 use App\Domain\CheckoutRepositoryInterface;
+use App\Domain\Shared\EntityId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -24,5 +25,15 @@ class CheckoutRepository extends ServiceEntityRepository implements CheckoutRepo
     public function createCheckout(Checkout $checkout): void
     {
         $this->persist($checkout);
+    }
+
+    public function updateCheckout(Checkout $checkout): void
+    {
+        $this->persist($checkout);
+    }
+
+    public function findCheckout(EntityId $entityId): ?Checkout
+    {
+        return $this->find($entityId->value);
     }
 }
