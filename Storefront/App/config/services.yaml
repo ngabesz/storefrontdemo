@@ -49,7 +49,7 @@ services:
 
     App\WebshopBundle\Infrastructure\Checkout\HttpCheckoutRepository:
         arguments:
-            - 'http://storefront_nginx/dummy/checkoutinit'
+            - 'http://storefront_nginx/dummy'
 
 
 
