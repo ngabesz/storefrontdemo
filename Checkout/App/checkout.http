@@ -65,7 +65,7 @@ POST http://localhost:8090/checkout/api/checkout/8ebc790b-f34a-4a5c-bbc5-dbb661e
 Content-Type: application/json
 
 {
-  "paymentMethodId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed"
+  "paymentMethodId": "5217588b-97e5-4bec-9e6c-1716397d4d3f"
 }
 
 ###
@@ -76,3 +76,28 @@ Content-Type: application/json
 {
   "shippingMethodId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed"
 }
+
+###
+
+POST http://localhost:8090/payment/api/payment/initiate
+Content-Type: application/json
+
+{
+"paymentMethodId": "5217588b-97e5-4bec-9e6c-1716397d4d3f",
+"customer": {
+"email": "test@test.hu",
+"billingAddress": {
+"country": "Magyarország",
+"city": "Budapest",
+"zipCode": "1111",
+"address": "Teszt utca 1.",
+"companyName": "Teszt Kft.",
+"taxNumber": "12345678-1-11"
+}
+},
+"amount": 10000
+}
+
+###
+
+GET http://localhost:8090/payment/api/paymentMethod/5217588b-97e5-4bec-9e6c-1716397d4d3f
