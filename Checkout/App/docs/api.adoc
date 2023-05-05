@@ -200,11 +200,11 @@ class CheckoutTotal {
 
 class Cart {
     - cartId: String
-    - cartItems: CartItems
+    - cartItems: CartItem
     - cartTotal: Number
 }
 
-class CartItems {
+class CartItem {
     - id: String
     - sku: String
     - name: String
@@ -225,7 +225,7 @@ PaymentMethod -> Checkout : 1 : 1
 Checkout <-- CheckoutStatus : 1 : 1
 Checkout <-- CheckoutTotal : 1 : 1
 Checkout <-- Cart : 1 : 1
-Cart <-- CartItems : 1 : N
+Cart <-- CartItem : 1 : N
 ----
 
 
