@@ -10,29 +10,16 @@ class Order
     private ShippingMethod $shippingMethod;
     private BillingAddress $billingAddress;
     private BillingMethod $billingMethod;
-
     /** @var Product[] */
-    private array $products;
+    private $products;
 
-    private float $total;
-
-    /**
-     * @param string $id
-     * @param Customer $customer
-     * @param ShippingAddress $shippingAddress
-     * @param ShippingMethod $shippingMethod
-     * @param BillingAddress $billingAddress
-     * @param BillingMethod $billingMethod
-     * @param Product[] $products
-     */
     public function __construct(
-            string $id,
-            Customer $customer,
-            ShippingAddress $shippingAddress,
-            ShippingMethod $shippingMethod,
-            BillingAddress $billingAddress,
-            BillingMethod $billingMethod,
-            array $products
+        string $id,
+        Customer $customer,
+        ShippingAddress $shippingAddress,
+        ShippingMethod $shippingMethod,
+        BillingAddress $billingAddress,
+        BillingMethod $billingMethod,
     ) {
         $this->id = $id;
         $this->customer = $customer;
@@ -40,69 +27,53 @@ class Order
         $this->shippingMethod = $shippingMethod;
         $this->billingAddress = $billingAddress;
         $this->billingMethod = $billingMethod;
-        $this->products = $products;
-
-        $this->total = 0;
+        $this->products = [];
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return Customer
-     */
     public function getCustomer(): Customer
     {
         return $this->customer;
     }
 
-    /**
-     * @return ShippingAddress
-     */
     public function getShippingAddress(): ShippingAddress
     {
         return $this->shippingAddress;
     }
 
-    /**
-     * @return ShippingMethod
-     */
     public function getShippingMethod(): ShippingMethod
     {
         return $this->shippingMethod;
     }
 
-    /**
-     * @return BillingAddress
-     */
     public function getBillingAddress(): BillingAddress
     {
         return $this->billingAddress;
     }
 
-    /**
-     * @return BillingMethod
-     */
     public function getBillingMethod(): BillingMethod
     {
         return $this->billingMethod;
     }
 
-    /**
-     * @return array
-     */
     public function getProducts(): array
     {
         return $this->products;
     }
 
+    public function addProduct(Product $product): void
+    {
+        $this->products[] = $product;
+        $product->setOrder($this);
+    }
+
     public function getTotal(): float
     {
+        //TODO: calculate total
         return $this->total;
     }
 }
