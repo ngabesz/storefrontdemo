@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Application\Order\Create;
+
 class CreateOrderCommand
 {
 

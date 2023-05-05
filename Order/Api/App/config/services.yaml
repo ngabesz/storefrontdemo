@@ -29,3 +29,8 @@ services:
               bus: command.bus
               handles: App\Application\Order\Create\CreateOrderCommand
 
+    App\Application\Order\List\ListOrderHandler:
+        tags:
+            - name: messenger.message_handler
+              bus: command.bus
+              handles: App\Application\Order\List\ListOrderFilteredQuery

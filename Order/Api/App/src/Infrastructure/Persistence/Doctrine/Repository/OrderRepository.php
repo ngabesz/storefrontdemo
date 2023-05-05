@@ -26,6 +26,9 @@ class OrderRepository extends ServiceEntityRepository implements OrderRepository
 
     public function query(OrderSpecification $orderSpecification): array
     {
-        // TODO: Implement query() method.
+        return $this->createQueryBuilder('c')
+            ->addCriteria($orderSpecification->toCriteria())
+            ->getQuery()
+            ->getResult();
     }
 }

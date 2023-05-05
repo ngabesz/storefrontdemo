@@ -2,7 +2,7 @@
 
 namespace App\Domain\Order\Specification;
 
-class OrderSpecification
+interface OrderSpecification
 {
-
+    public function toCriteria(): CriteriaInterface;
 }
