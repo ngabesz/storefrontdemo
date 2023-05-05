@@ -7,7 +7,7 @@ use App\Domain\CartItem;
 class Cart
 {
     public function __construct(
-        private String $cartId,
+        private string $cartId,
         private CartItem $cartItem,
         private float $cartTotal
     ) {

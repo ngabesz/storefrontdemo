@@ -5,9 +5,9 @@ namespace App\Domain;
 class CartItem
 {
     public function __construct(
-        private String $id,
-        private String $sku,
-        private String $name,
+        private string $id,
+        private string $sku,
+        private string $name,
         private int $quantity,
         private float $price,
         private float $total
