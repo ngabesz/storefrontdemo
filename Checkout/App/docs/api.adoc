@@ -156,15 +156,14 @@ include::./api/response/checkout.json[]
 ----
 class Checkout {
     - checkoutId: UUID
-    - cart: Cart
+    - status: CheckoutStatus [enum: PENDING, COMPLETED]
     - customer: Customer
     - shippingAddress: Address
     - billingAddress: Address
     - shippingMethod: ShippingMethod
     - paymentMethod: PaymentMethod
-    - status: CheckoutStatus [enum: PENDING, COMPLETED]
-    - cart: Cart
     + checkoutTotal(): CheckoutTotal
+    - cart: Cart
 }
 
 class Customer {
