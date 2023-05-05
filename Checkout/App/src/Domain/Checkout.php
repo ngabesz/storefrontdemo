@@ -72,4 +72,59 @@ class Checkout
         return $this->cart;
     }
 
+    /**
+     * @param \App\Domain\CheckoutStatus $checkoutStatus
+     */
+    public function setCheckoutStatus(\App\Domain\CheckoutStatus $checkoutStatus): void
+    {
+        $this->checkoutStatus = $checkoutStatus;
+    }
+
+    /**
+     * @param \App\Domain\Cart $cart
+     */
+    public function setCart(\App\Domain\Cart $cart): void
+    {
+        $this->cart = $cart;
+    }
+
+    /**
+     * @param \App\Domain\Customer|null $customer
+     */
+    public function setCustomer(?\App\Domain\Customer $customer): void
+    {
+        $this->customer = $customer;
+    }
+
+    /**
+     * @param \App\Domain\ShippingAddress|null $shippingAddress
+     */
+    public function setShippingAddress(?\App\Domain\ShippingAddress $shippingAddress): void
+    {
+        $this->shippingAddress = $shippingAddress;
+    }
+
+    /**
+     * @param \App\Domain\BillingAddress|null $billingAddress
+     */
+    public function setBillingAddress(?\App\Domain\BillingAddress $billingAddress): void
+    {
+        $this->billingAddress = $billingAddress;
+    }
+
+    /**
+     * @param \App\Domain\ShippingMethod|null $shippingMethod
+     */
+    public function setShippingMethod(?\App\Domain\ShippingMethod $shippingMethod): void
+    {
+        $this->shippingMethod = $shippingMethod;
+    }
+
+    /**
+     * @param \App\Domain\PaymentMethod|null $paymentMethod
+     */
+    public function setPaymentMethod(?\App\Domain\PaymentMethod $paymentMethod): void
+    {
+        $this->paymentMethod = $paymentMethod;
+    }
 }

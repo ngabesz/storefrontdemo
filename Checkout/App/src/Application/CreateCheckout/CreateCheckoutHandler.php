@@ -19,7 +19,7 @@ class CreateCheckoutHandler
     ) {
     }
 
-    public function __invoke(CreateCheckoutCommand $command): EntityId
+    public function __invoke(CreateCheckoutCommand $command): Checkout
     {
         $checkoutId = $this->entityIdGenerator->generate();
         $cart = $this->cartApi->getCart($command->cartId);
@@ -29,6 +29,6 @@ class CreateCheckoutHandler
             $cart
         );
         $this->checkoutRepository->createCheckout($checkout);
-        return $checkoutId;
+        return $checkout;
     }
 }
