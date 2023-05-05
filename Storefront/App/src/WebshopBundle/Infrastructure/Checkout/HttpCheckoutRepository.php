@@ -124,7 +124,27 @@ class HttpCheckoutRepository implements CheckoutRepositoryInterface
         return new Checkout();
     }
     public function getCheckout(string $checkoutId): ?Checkout{
-        return new Checkout();
+        $response = $this->client->get($this->url.'/get', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                //'Authorization' => 'Bearer ' . $accessToken->getToken()
+            ],
+            'json' => ['checkoutId' => $checkoutId],
+            'verify' => 0
+        ]);
+
+        $response = json_decode($response->getBody()->getContents(), true);
+
+        $checkout = new Checkout();
+        $checkout->setId($response['checkoutId']);
+        $checkout->setStatus($response['status']);
+        $checkout->setCustomer(new Customer($response['customer']['email'],$response['customer']['firstName'],$response['customer']['lastName'],$response['customer']['phone']));
+        $checkout->setCheckoutTotal(new CheckoutTotal(floatval($response['checkoutTotal']['value']), $response['checkoutTotal']['currency']));
+        $checkout->setPaymentMethode(new PaymentMethod($response['paymentMethod']['paymentMethodId'], $response['paymentMethod']['paymentMethodName'], floatval($response['paymentMethod']['paymentFee'])));
+        $checkout->setShippingMethod(new ShippingMethod($response['shippingMethod']['shippingMethodId'], $response['shippingMethod']['shippingMethodName'], floatval($response['shippingMethod']['shippingFee'])));
+        $checkout->setPaymentAddress(new Address($response['billingAddress']['address'], $response['billingAddress']['city'], $response['billingAddress']['postcode'], $response['billingAddress']['country']));
+        $checkout->setShippingAddress(new Address($response['shippingAddress']['address'], $response['shippingAddress']['city'], $response['shippingAddress']['postcode'], $response['shippingAddress']['country']));
+        return $checkout;
     }
 
 

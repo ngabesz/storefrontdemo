@@ -83,3 +83,8 @@ shipping:
     path: /shipping
     controller: App\WebshopBundle\Presentation\Web\Controller\ShippingController::index
     methods: GET
+
+get_checkout_dummy_init:
+    path: /dummy/customer
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutDummyController::initGetCheckout
+    methods: POST
