@@ -7,7 +7,7 @@
     <entity name="App\Domain\Cart" table="cart">
         <id name="cartId" type="entity_id" column="cart_id" unique="true"/>
         <field name="cartTotal" type="float" column="cart_total"/>
-        <field name="externalCartId" type="string" column="cart_external_id"/>
+        <field name="externalCartId" type="string" column="external_cart_id"/>
         <one-to-many field="cartItems" target-entity="CartItem" mapped-by="cart">
             <cascade>
                 <cascade-all/>
