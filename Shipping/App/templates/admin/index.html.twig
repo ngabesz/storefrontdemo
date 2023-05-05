@@ -181,6 +181,7 @@ function getAllShippingMethods() {
                 };
                 for(let j in lanes)
                 shippingLanes[uuid].push({
+                    id: makeid(10),
                     min: lanes[j].minGrossPrice,
                     max: lanes[j].maxGrossPrice,
                     price: lanes[j].cost
@@ -247,7 +248,7 @@ function addLane(uuid) {
         shippingLanes[uuid] = []
     };
     const id = makeid(10);
-    shippingLanes[uuid].push({id: id,min: min, max: max, price: price})
+    shippingLanes[uuid].push({id: id, min: min, max: max, price: price})
     $("#lanes tbody").append(`
         <tr id="${id}">
             <td>${min}</td>
