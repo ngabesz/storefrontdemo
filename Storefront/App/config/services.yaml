@@ -50,18 +50,14 @@ services:
     App\WebshopBundle\Infrastructure\Checkout\HttpCheckoutRepository:
         arguments:
             - 'http://storefront_nginx/dummy'
-            -
     App\WebshopBundle\Infrastructure\Shipping\HttpShippingRepository:
         arguments:
             - 'http://storefront_nginx/dummy/shipping'
 
-    App\WebshopBundle\Infrastructure\Shipping\HttpPaymentRepository:
+    App\WebshopBundle\Infrastructure\Payment\HttpPaymentRepository:
         arguments:
             - 'http://storefront_nginx/dummy/payment'
 
-    App\WebshopBundle\Infrastructure\Shipping\HttpShippingRepository:
-        arguments:
-            - 'http://storefront_nginx/dummy'
 
 
 
