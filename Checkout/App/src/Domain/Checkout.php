@@ -16,13 +16,13 @@ class Checkout
     public function __construct(
         private EntityId $checkoutId,
         private CheckoutStatus $checkoutStatus,
-        private Customer $customer,
-        private ShippingAddress $shippingAddress,
-        private BillingAddress $billingAddress,
-        private ShippingMethod $shippingMethod,
-        private PaymentMethod $paymentMethod,
-        private CheckoutTotal $checkoutTotal,
-        private Cart $cart
+        private Cart $cart,
+        private ?CheckoutTotal $checkoutTotal = null,
+        private ?Customer $customer = null,
+        private ?ShippingAddress $shippingAddress = null,
+        private ?BillingAddress $billingAddress = null,
+        private ?ShippingMethod $shippingMethod = null,
+        private ?PaymentMethod $paymentMethod = null
     ) {
     }
 

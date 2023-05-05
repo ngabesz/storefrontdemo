@@ -2,21 +2,19 @@
 
 namespace App\Domain;
 
+use App\Domain\Shared\EntityId;
+
 class CartItem
 {
     public function __construct(
-        private string $id,
+        private EntityId $cartItemId,
+        private string $externalId,
         private string $sku,
         private string $name,
         private int $quantity,
         private float $price,
         private float $total
     ) {
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 
     public function getSku(): string
@@ -42,6 +40,16 @@ class CartItem
     public function getTotal(): float
     {
         return $this->total;
+    }
+
+    public function getCartItemId(): EntityId
+    {
+        return $this->cartItemId;
+    }
+
+    public function getExternalId(): string
+    {
+        return $this->externalId;
     }
 
 }
