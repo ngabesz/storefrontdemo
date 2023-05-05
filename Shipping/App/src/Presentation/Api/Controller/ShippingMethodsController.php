@@ -21,11 +21,11 @@ class ShippingMethodsController extends AbstractController
 
     public function fetchShippingMethods(): JsonResponse
     {
-        return $this->json([
+        return $this->json(
             $this->handle(
                 new FetchShippingMethodsQuery(200.0)
             )
-        ]);
+        );
     }
 
     public function getShippingMethodById(Request $request): JsonResponse
