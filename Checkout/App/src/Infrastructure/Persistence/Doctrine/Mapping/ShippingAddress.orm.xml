@@ -4,7 +4,7 @@
                   xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Address" table="address">
+    <entity name="App\Domain\ShippingAddress" table="shipping_address">
         <id name="addressId" type="entity_id" column="address_id" unique="true"/>
         <field name="address" type="string" column="address"/>
         <field name="country" type="string" column="country"/>
