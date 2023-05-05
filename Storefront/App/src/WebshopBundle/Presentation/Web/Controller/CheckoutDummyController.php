@@ -27,4 +27,15 @@ class CheckoutDummyController extends AbstractController
     {
         return new Response(json_encode(['checkoutId'=>"alma"]),200,['Content-Type'=>'application/json']);
     }
+
+    public function init2(Request $request){
+        return new Response(json_encode(
+            [
+                'email'=>"email",
+                'lastName'=>"asdf",
+                'firstName'=>"osidjf",
+                'phone'=>"osidfjosidjf"
+            ]
+        ),200,['Content-Type'=>'application/json']);
+    }
 }
