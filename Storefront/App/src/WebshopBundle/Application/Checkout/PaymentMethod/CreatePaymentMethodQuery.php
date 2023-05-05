@@ -6,16 +6,23 @@ use App\WebshopBundle\Domain\Model\Checkout\Dto\PaymentMethod;
 
 class CreatePaymentMethodQuery
 {
-    private PaymentMethod $paymentMethod;
+    private string $checkoutId;
+    private string $paymentMethodId;
 
-    public function __construct(PaymentMethod $paymentMethod)
+    public function __construct(string $checkoutId, string $paymentMethodId)
     {
-        $this->paymentMethod = $paymentMethod;
+        $this->paymentMethodId = $paymentMethodId;
+        $this->checkoutId = $checkoutId;
     }
 
-    public function getPaymentMethod(): PaymentMethod
+    public function getPaymentMethodId(): string
     {
-        return $this->paymentMethod;
+        return $this->paymentMethodid;
+    }
+
+    public function getCheckoutId(): string
+    {
+        return $this->checkoutId;
     }
 
 }

@@ -70,7 +70,7 @@ class HttpCheckoutRepository implements CheckoutRepositoryInterface
         $checkout->setCustomer($customer);
         return $checkout;
     }
-    public function addShippingAddress(Address $address): Checkout
+    public function addShippingAddress(string $checkoutId, Address $address): Checkout
     {
         return new Checkout();
     }
@@ -97,14 +97,14 @@ class HttpCheckoutRepository implements CheckoutRepositoryInterface
         $checkout->setShippingMethod($shippingMethod);
         return $checkout;
     }
-    public function addPaymentMethod(PaymentMethod $paymentMethod): Checkout{
-        $response = $this->client->post($this->url, [
+    public function addPaymentMethod(string $checkoutId, string $paymentMethodId): Checkout{
+        $response = $this->client->post($this->url . '/' . $checkoutId, [
             'headers' => [
                 'Content-Type' => 'application/json',
                 //'Authorization' => 'Bearer ' . $accessToken->getToken()
             ],
             'json' => [
-                'paymentMethodId' => $paymentMethod->getPaymentMethodId()
+                'paymentMethodId' => $paymentMethodId
             ],
             'verify' => 0
         ]);

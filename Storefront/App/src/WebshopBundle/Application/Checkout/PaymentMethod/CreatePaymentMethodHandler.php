@@ -14,6 +14,9 @@ class CreatePaymentMethodHandler
     }
 
     public function __invoke(CreatePaymentMethodQuery $createPaymentMethodQuery){
-        return $this->checkoutRepository->addPaymentMethod($createPaymentMethodQuery->getPaymentMethod());
+        return $this->checkoutRepository->addPaymentMethod(
+            $createPaymentMethodQuery->getCheckoutId(),
+            $createPaymentMethodQuery->getPaymentMethodId()
+        );
     }
 }

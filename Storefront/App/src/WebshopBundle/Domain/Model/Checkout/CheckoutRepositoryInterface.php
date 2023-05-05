@@ -16,7 +16,7 @@ interface CheckoutRepositoryInterface
     public function addShippingAddress(string $checkoutId, Address $address): Checkout;
     public function addPaymentAddress(Address $address): Checkout;
     public function addShippingMethod(ShippingMethod $shippingMethod): Checkout;
-    public function addPaymentMethod(PaymentMethod $paymentMethod): Checkout;
+    public function addPaymentMethod(string $checkoutId, string $paymentMethodId): Checkout;
     public function confirmCheckout(Checkout $checkout): Checkout;
     public function addCheckoutTotal(CheckoutTotal $checkoutTotal): Checkout;
 
