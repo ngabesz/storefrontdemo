@@ -25,7 +25,13 @@ class CheckoutAdapter implements CheckoutAdapterInterface
     public function getCheckoutById(string $checkoutId): Checkout
     {
         $rawCheckout = $this->client->get($checkoutId);
+        $rawCustomer = $rawCheckout['customer'];
+        $rawShippingAddress = $rawCheckout['shippingAddress'];
+        $rawBillingAddress = $rawCheckout['billingAddress'];
+        $rawShippingMethod = $rawCheckout['shippingMethod'];
+        $rawPaymentMethod = $rawCheckout['paymentMethod'];
 
+        // mock ---------
 //        $checkoutId = 'Asd';
 //        $status = 'COMPLETED';
 //        $customer = new Customer('easd@gmail.com', 'lastname', 'firstname', 'phone');
@@ -33,36 +39,37 @@ class CheckoutAdapter implements CheckoutAdapterInterface
 //        $billingAddress = new BillingAddress('address', 'city', 'postcode', 'country');
 //        $shippingMethod = new ShippingMethod('shippingmethodid', 'shippingmethodname', 123);
 //        $paymentMethod = new PaymentMethod('paymentmethodid', 'paymentmethodname', 123);
+        // mock ---------
 
         $checkoutId = $rawCheckout['checkoutId'];
         $status = $rawCheckout['status'];
         $customer = new Customer(
-                $rawCheckout['customer']['email'],
-                $rawCheckout['customer']['lastName'],
-                $rawCheckout['customer']['firstName'],
-                $rawCheckout['customer']['phone']
+                $rawCustomer['email'],
+                $rawCustomer['lastName'],
+                $rawCustomer['firstName'],
+                $rawCustomer['phone']
         );
         $shippingAddress = new ShippingAddress(
-                $rawCheckout['shippingAddress']['address'],
-                $rawCheckout['shippingAddress']['city'],
-                $rawCheckout['shippingAddress']['postcode'],
-                $rawCheckout['shippingAddress']['country']
+                $rawShippingAddress['address'],
+                $rawShippingAddress['city'],
+                $rawShippingAddress['postcode'],
+                $rawShippingAddress['country']
         );
         $billingAddress = new BillingAddress(
-                $rawCheckout['billingAddress']['address'],
-                $rawCheckout['billingAddress']['city'],
-                $rawCheckout['billingAddress']['postcode'],
-                $rawCheckout['billingAddress']['country']
+                $rawBillingAddress['address'],
+                $rawBillingAddress['city'],
+                $rawBillingAddress['postcode'],
+                $rawBillingAddress['country']
         );
         $shippingMethod = new ShippingMethod(
-                $rawCheckout['shippingMethod']['shippingMethodId'],
-                $rawCheckout['shippingMethod']['shippingMethodName'],
-                $rawCheckout['shippingMethod']['shippingFee']
+                $rawShippingMethod['shippingMethodId'],
+                $rawShippingMethod['shippingMethodName'],
+                $rawShippingMethod['shippingFee']
         );
         $paymentMethod = new PaymentMethod(
-                $rawCheckout['paymentMethod']['paymentMethodId'],
-                $rawCheckout['paymentMethod']['paymentMethodName'],
-                $rawCheckout['paymentMethod']['paymentFee']
+                $rawPaymentMethod['paymentMethodId'],
+                $rawPaymentMethod['paymentMethodName'],
+                $rawPaymentMethod['paymentFee']
         );
 
         $items = [];
