@@ -98,7 +98,7 @@ services:
       dockerfile: Dockerfile
     container_name: 'order_api'
     volumes:
-      - ./Order/Api/App/var/www/html
+      - ./Order/Api/App:/var/www/html
       - ./Order/Docker/php.ini:/etc/php81/conf.d/settings.ini
       - ./Order/Docker/nginx.conf:/etc/nginx/conf.d/server.conf
     ports:
