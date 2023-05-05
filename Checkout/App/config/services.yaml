@@ -48,3 +48,10 @@ services:
         - name: messenger.message_handler
           bus: command.bus
           handles: App\Application\SaveShippingAddress\SaveShippingAddressCommand
+
+
+    App\Application\SaveBillingAddress\SaveBillingAddressHandler:
+      tags:
+        - name: messenger.message_handler
+          bus: command.bus
+          handles: App\Application\SaveBillingAddress\SaveBillingAddressCommand

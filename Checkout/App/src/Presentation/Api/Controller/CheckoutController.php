@@ -4,6 +4,7 @@ namespace App\Presentation\Api\Controller;
 
 use App\Application\CreateCheckout\CreateCheckoutCommand;
 use App\Application\SaveShippingAddress\SaveShippingAddressCommand;
+use App\Application\SaveBillingAddress\SaveBillingAddressCommand;
 use Nyholm\Psr7\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,10 +65,29 @@ class CheckoutController extends AbstractController
 
     public function saveBillingAddress(Request $request)
     {
+        $post = json_decode($request->getContent());
+        $command = new SaveBillingAddressCommand(
+            $post->checkoutId,
+            $post->address,
+            $post->country,
+            $post->postcode,
+            $post->city
+        );
 
+        $response = $this->handle(
+            $command
+        );
+
+        $jsonresponse = $this->serializer->serialize($response,'json');
+        return new Response($jsonresponse);
     }
 
     public function savePaymentMethod(Request $request)
+    {
+
+    }
+
+    public function saveShippingMethod(Request $request)
     {
 
     }
