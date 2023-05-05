@@ -50,7 +50,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8090/checkout/api/checkout/8ebc790b-f34a-4a5c-bbc5-dbb661eb57f9
+GET http://localhost:8090/checkout/api/checkout/89a46369-a0d2-42cd-929f-592f4f469406
 Content-Type: application/json
 
 
