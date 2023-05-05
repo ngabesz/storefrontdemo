@@ -2,6 +2,7 @@
 
 namespace App\Presentation\Api\Controller;
 
+use App\Application\ConfirmCheckout\ConfirmCheckoutCommand;
 use App\Application\CreateCheckout\CreateCheckoutCommand;
 use App\Application\SaveCustomer\SaveCustomerCommand;
 use App\Application\SaveShippingAddress\SaveShippingAddressCommand;
@@ -116,8 +117,11 @@ class CheckoutController extends AbstractController
         return new Response($jsonresponse);
     }
 
-    public function confirm(Request $request)
+    public function confirm(string $checkoutId)
     {
+        $command = new ConfirmCheckoutCommand($checkoutId);
+        $response = $this->handle($command);
 
+        return new Response($this->serializer->serialize($response,'json'));
     }
 }
