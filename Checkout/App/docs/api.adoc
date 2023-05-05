@@ -191,6 +191,17 @@ GET /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed
   "checkoutTotal": {
     "value": 123.345,
     "currency": "HUF"
+  },
+  "cart": {
+    "cartId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
+    "items": [
+      {
+        "id": "7b6c9fa4-8713-496b-821c-f468d56ad02c",
+        "name": "Lorem ipsum dolor sit",
+        "quantity": 2,
+        "price": 100
+      }
+    ]
   }
 }
 ----
