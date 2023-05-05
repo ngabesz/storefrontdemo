@@ -10,6 +10,8 @@ use App\WebshopBundle\Application\Cart\GetCart\Dto\GetCartOutput;
 use App\WebshopBundle\Application\Cart\GetCart\GetCartQuery;
 use App\WebshopBundle\Application\Cart\RemoveItemFromCart\RemoveItemFromCartCommand;
 use App\WebshopBundle\Application\Checkout\CreateCheckout\CreateCheckoutQuery;
+use App\WebshopBundle\Application\Checkout\Customer\CreateCustomerQuery;
+use App\WebshopBundle\Domain\Model\Checkout\Dto\Customer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -35,9 +37,25 @@ class CheckoutController extends AbstractController
         if ($request->cookies->has('cart_id')) {
             $checkout = $this->handle(new CreateCheckoutQuery($request->cookies->get('cart_id')));
         }
-
+        $request->cookies->set('checkoutId', $checkout->getCheckoutId());
         return $this->render('@webshop/customer_space/checkout.html.twig', [
             'checkoutId' => $checkout->getCheckoutId()
         ]);
+    }
+
+    public function addCustomer(Request $request)
+    {
+
+        if (!$request->cookies->has('checkoutId')) {
+            $this->redirect('/checkout');
+        }
+        $customer = new Customer(
+            $request->get("email",null),
+            $request->get("firstName",null),
+            $request->get("lastName",null),
+            $request->get("phone",null)
+        );
+        $checkout = $this->handle(new CreateCustomerQuery($customer));
+//        return redire;
     }
 }
