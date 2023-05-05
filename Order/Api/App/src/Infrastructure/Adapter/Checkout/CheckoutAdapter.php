@@ -35,7 +35,7 @@ class CheckoutAdapter implements CheckoutAdapterInterface
         $paymentMethod = new PaymentMethod('paymentmethodid', 'paymentmethodname', 123);
 
         $items = [
-                new CartItem("a", "asd", "name", 2, 34, 54),
+                new CartItem("b", "asd", "name", 2, 34, 54),
         ];
         $cart = new Cart('catrId', $items, 1234);
 

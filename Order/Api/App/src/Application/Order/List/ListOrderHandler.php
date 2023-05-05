@@ -64,7 +64,7 @@ class ListOrderHandler
                     'grossPrice' => $order->getBillingMethod()->getGrossPrice(),
                 ],
                 'products' => $products,
-                'grossTotal' => $order->getId(),
+                'grossTotal' => $order->getTotal(),
             ];
         }
         return $responseArray;
