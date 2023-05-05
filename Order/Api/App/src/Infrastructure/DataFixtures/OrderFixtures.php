@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataFixtures;
+namespace App\Infrastructure\DataFixtures;
 
 use App\Domain\Billing\BillingAddress;
 use App\Domain\Billing\BillingMethod;

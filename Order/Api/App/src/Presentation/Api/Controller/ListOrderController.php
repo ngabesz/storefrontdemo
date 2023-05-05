@@ -23,15 +23,11 @@ class ListOrderController extends AbstractController
         try {
             $response = $this->handle(new ListOrderFilteredQuery(null));
             $response = ['orders' => $response];
-        } catch (HandlerFailedException $exception) {
-            dd($exception->getPrevious());
-            return new JsonResponse(
-                ['code' => $exception->getPrevious()->getCode(), 'message' => 'Sámting rong'],
-                401
-            );
-        }
 
-        return new JsonResponse($response);
+            return $this->json($response);
+        } catch (HandlerFailedException $exception) {
+            return $this->json(['error' => $exception->getMessage(), 500]);
+        }
     }
 
     public function getAction(string $id): JsonResponse
@@ -41,14 +37,9 @@ class ListOrderController extends AbstractController
             if (!empty($response)) {
                 $response = array_pop($response);
             }
+            return $this->json($response);
         } catch (HandlerFailedException $exception) {
-            dd($exception->getPrevious());
-            return new JsonResponse(
-                ['code' => $exception->getPrevious()->getCode(), 'message' => 'Sámting rong'],
-                401
-            );
+            return $this->json(['error' => $exception->getMessage(), 500]);
         }
-
-        return new JsonResponse($response);
     }
 }
