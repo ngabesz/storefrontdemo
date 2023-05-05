@@ -1,0 +1,277 @@
+<head>
+    <title>Shipping Admin</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(45deg, #49a09d, #5f2c82);
+            font-family: sans-serif;
+            font-weight: 100;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            background-color: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        thead {
+            th {
+                background-color: #55608f;
+            }
+        }
+
+        tbody {
+            tr {
+                &:hover {
+                    background-color: rgba(255,255,255,0.3);
+                }
+            }
+            td {
+                position: relative;
+                &:hover {
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: -9999px;
+                        bottom: -9999px;
+                        background-color: rgba(255,255,255,0.2);
+                        z-index: -1;
+                    }
+                }
+            }
+        }
+
+        button {
+            border: none;
+            background: transparent;
+            cursor: pointer
+        }
+
+        .save {
+            background: #328a17;
+            color: white
+        }
+        .delete {
+            background: #821625;
+            color: white
+        }
+
+        .editLanes {
+            background: #d1c32a;
+        }
+        #editLanes {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #272727;
+            padding: 1rem;
+            z-index: 99999999999;
+            color: white;
+            display: none
+        }
+    </style>
+
+</head>
+<body>
+    <div id="editLanes">
+        <div>
+            <div style="padding: .5rem; font-weight: bold; cursor: pointer" onclick="$('#editLanes').hide()">X</div>
+            Minimum: <input type="number" id="minGrossValue">
+            Maximum: <input type="number" id="maxGrossValue">
+            Ár: <input type="number" id="grossPrice">
+            <div>
+                <input style="float:right; margin-top: 20px" onclick="addLane($(this).attr('data-uuid'))" data-uuid="" id="addLane" type="submit" value="Add">
+            </div>
+            <div>
+                <h3>
+                Jelenlegi sávok:
+                </h3>
+                <table id="lanes">
+                    <thead>
+                        <tr>
+                            <th>Minimum</th>
+                            <th>Maximum</th>
+                            <th>Ár</th>
+                            <th>Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <table id="table" class="container">
+        <thead>
+            <tr>
+                <th>UUID</th>
+                <th>name</th>
+                <th>description</th>
+                <th>isEnabled</th>
+                <th>shippingLanes</th>
+                <th>methods</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+<script>
+const uuid = "fasdhifas-asdgasdgadsg-agasdga";
+const uuid2 = "elfbar-asdgasdgadsg-agasdgga";
+let shippingLanes = {};
+
+function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
+
+$("#table tbody").append(`
+    <tr>
+        <td>${uuid}</td>
+        <td><input id="${uuid}_name" value="GLS"></td>
+        <td><input id="${uuid}_description" value="GLS Házhozszállítás"></td>
+        <td><input type="checkbox" checked id="${uuid}_isEnabled"></td>
+        <td><button class="editLanes" onclick="editLanes('${uuid}')">Edit lanes</button></td>
+        <td><button class="save" onclick="saveMethod('${uuid}')">Save</button> <button class="delete" onclick="deleteMethod('${uuid}')">Delete</button></td>
+    </tr>
+`)
+
+$("#table tbody").append(`
+    <tr>
+        <td>${uuid2}</td>
+        <td><input id="${uuid2}_name" value="DPD"></td>
+        <td><input id="${uuid2}_description" value="DPD Házhozszállítás"></td>
+        <td><input type="checkbox" id="${uuid2}_isEnabled"></td>
+        <td><button class="editLanes" onclick="editLanes('${uuid2}')">Edit lanes</button></td>
+        <td><button class="save" onclick="saveMethod('${uuid2}')">Save</button> <button class="delete" onclick="deleteMethod('${uuid2}')">Delete</button></td>
+    </tr>
+`)
+
+function validate(id) {
+    if($(`#${id} input`).val().trim().length == 0) return false;
+    return true;
+}
+
+function deleteMethod(uuid) {
+    alert(uuid + " deleted")
+}
+function saveMethod(uuid) {
+    if(!validate('table')) {
+        alert("Minden input kitöltése kötelező!");
+        return;
+    }
+    const name = $(`#${uuid}_name`).val().trim();
+    const description = $(`#${uuid}_description`).val().trim();
+    const isEnabled = $(`#${uuid}_isEnabled`).is(":checked");
+    const lanes = shippingLanes[uuid];
+    if(!lanes || lanes.length == 0) {
+        alert("Nincs megadva sáv!");
+        return;
+    }
+
+    console.log(name, description, isEnabled, lanes)
+    
+}
+
+function editLanes(uuid) {
+    if(!shippingLanes[uuid]) {
+        shippingLanes[uuid] = []
+    };
+    $("#lanes tbody").html("");
+    for(let i in shippingLanes[uuid]) {
+        $("#lanes tbody").append(`
+            <tr id="${shippingLanes[uuid][i].id}">
+                <td>${shippingLanes[uuid][i].min}</td>
+                <td>${shippingLanes[uuid][i].max}</td>
+                <td>${shippingLanes[uuid][i].price}</td>
+                <td><input type="submit" onclick="deleteLane('${shippingLanes[uuid][i].id}', '${uuid}')" value="Delete"></td>
+            </tr>
+        `)
+    }
+    $("#addLane").attr("data-uuid", uuid)
+    $("#editLanes").show()
+}
+
+function addLane(uuid) {
+    if(!validate('editLanes')) {
+        alert("Minden input kitöltése kötelező!")
+        return
+    } 
+    const min = $("#minGrossValue").val()
+    const max = $("#maxGrossValue").val()
+    const price = $("#grossPrice").val()
+    if(!shippingLanes[uuid]) {
+        shippingLanes[uuid] = []
+    };
+    const id = makeid(10);
+    shippingLanes[uuid].push({id: id,min: min, max: max, price: price})
+    $("#lanes tbody").append(`
+        <tr id="${id}">
+            <td>${min}</td>
+            <td>${max}</td>
+            <td>${price}</td>
+            <td><input type="submit" onclick="deleteLane('${id}', '${uuid}')" value="Delete"></td>
+        </tr>
+    `)
+    $("#minGrossValue, #maxGrossValue, #grossPrice").val("")
+}
+
+function deleteLane(id, uuid) {
+    for(let i in shippingLanes[uuid]) {
+        if(shippingLanes[uuid][i].id == id) {
+            shippingLanes[uuid].splice(i, 1)
+        }
+    }
+    $(`#${id}`).remove();
+}
+
+function request(url, method = "GET", formData = {}) {
+    $.ajax({
+        url: url,
+        contentType: false,
+        processData: false,
+        data: formData,
+        type: method,
+        success: function(data) {
+            return data
+        }
+    })
+}
+</script>
