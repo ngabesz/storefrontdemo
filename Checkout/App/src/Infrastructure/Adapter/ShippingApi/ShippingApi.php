@@ -21,11 +21,13 @@ class ShippingApi implements ShippingApiInterface
 
     public function getShippingMethod(string $externalShippingMethodId): ShippingMethod
     {
-        $response = $this->client->request('GET', '/api/')
-
-        $shippingMethod = new ShippingMethod(
+        $response = $this->client->request('GET', "/api/shipping-method/$externalShippingMethodId");
+        $data = json_decode($response->getContent(), true);
+        return new ShippingMethod(
             $this->entityIdGenerator->generate(),
-
-        )
+            $externalShippingMethodId,
+            $data['name'],
+            $data['cost']
+        );
     }
 }
