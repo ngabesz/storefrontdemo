@@ -3,6 +3,7 @@
 namespace App\Presentation\Api\Controller;
 
 use App\Application\CreateCheckout\CreateCheckoutCommand;
+use App\Application\GetCheckout\GetCheckoutQuery;
 use App\Application\SaveCustomer\SaveCustomerCommand;
 use App\Application\SaveShippingAddress\SaveShippingAddressCommand;
 use App\Application\SaveBillingAddress\SaveBillingAddressCommand;
@@ -39,7 +40,15 @@ class CheckoutController extends AbstractController
 
     public function getCheckout(Request $request)
     {
+        $post = json_decode($request->getContent());
+        $query = new GetCheckoutQuery($post->checkoutId);
 
+        $response = $this->handle(
+            $query
+        );
+
+        $jsonresponse = $this->serializer->serialize($response,'json');
+        return new Response($jsonresponse);
     }
 
     public function saveCustomer(Request $request)
