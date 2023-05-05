@@ -108,9 +108,13 @@ class CheckoutController extends AbstractController
         return new Response($jsonresponse);
     }
 
-    public function savePaymentMethod(string $checkoutId)
+    public function savePaymentMethod(string $checkoutId, Request $request)
     {
-        $command = new SavePaymentMethodCommand($checkoutId);
+        $post = json_decode($request->getContent());
+        $command = new SavePaymentMethodCommand(
+            $checkoutId,
+            $post->paymentMethodId
+        );
 
         $response = $this->handle(
             $command
@@ -120,9 +124,13 @@ class CheckoutController extends AbstractController
         return new Response($jsonresponse);
     }
 
-    public function saveShippingMethod(string $checkoutId)
+    public function saveShippingMethod(string $checkoutId, Request $request)
     {
-        $command = new SaveShippingMethodCommand($checkoutId);
+        $post = json_decode($request->getContent());
+        $command = new SaveShippingMethodCommand(
+            $checkoutId,
+            $post->shippingMethodId
+        );
 
         $response = $this->handle(
             $command
