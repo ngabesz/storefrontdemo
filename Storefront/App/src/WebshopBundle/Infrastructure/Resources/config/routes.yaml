@@ -48,3 +48,8 @@ cart:
     path: /cart
     controller: App\WebshopBundle\Presentation\Web\Controller\CartController::index
     methods: GET
+
+thankyou:
+    path: /thankyou
+    controller: App\WebshopBundle\Presentation\Web\Controller\ThankYouController::index
+    methods: GET
