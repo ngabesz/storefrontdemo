@@ -28,3 +28,27 @@ services:
             - name: messenger.message_handler
               bus: command.bus
               handles: App\Application\Example\ExampleQuery
+
+    App\Application\FetchShippingMethods\FetchShippingMethodsHandler:
+        tags:
+            - name: messenger.message_handler
+              bus: command.bus
+              handles: App\Application\FetchShippingMethods\FetchShippingMethodsQuery
+
+    App\Application\GetShippingMethodById\GetShippingMethodByIdHandler:
+        tags:
+            - name: messenger.message_handler
+              bus: command.bus
+              handles: App\Application\GetShippingMethodById\GetShippingMethodByIdQuery
+
+    App\Application\CreateShippingMethod\CreateShippingMethodHandler:
+        tags:
+            - name: messenger.message_handler
+              bus: command.bus
+              handles: App\Application\CreateShippingMethod\CreateShippingMethodCommand
+
+    App\Application\DeleteShippingMethod\DeleteShippingMethodHandler:
+      tags:
+        - name: messenger.message_handler
+          bus: command.bus
+          handles: App\Application\DeleteShippingMethod\DeleteShippingMethodCommand
