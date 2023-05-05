@@ -5,10 +5,11 @@ namespace App\Domain;
 class ShippingLane
 {
     public function __construct(
-        private readonly string $shippingMethodId,
-        private readonly float $minGrossPrice,
-        private readonly float $maxGrossPrice,
-        private readonly float $cost,
+        public string $id,
+        public ShippingMethod $shippingMethod,
+        public float $minGrossPrice,
+        public float $maxGrossPrice,
+        public float $cost,
     ) {}
 
     public function getMinGrossPrice(): float

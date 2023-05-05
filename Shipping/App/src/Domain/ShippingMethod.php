@@ -2,15 +2,17 @@
 
 namespace App\Domain;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class ShippingMethod
 {
     /** @param ShippingLane[] $shippingLanes */
     public function __construct(
-        private readonly string $id,
-        private readonly string $name,
-        private readonly string $description,
-        private readonly bool $isEnabled,
-        private array $shippingLanes = []
+       public string $id,
+       public string $name,
+       public string $description,
+       public bool $isEnabled,
+       public ArrayCollection $shippingLanes = new ArrayCollection()
     ) {}
 
     public function getId(): string

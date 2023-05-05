@@ -1,13 +1,10 @@
 <doctrine-mapping>
     <entity name="App\Domain\ShippingMethod" table="shipping_method">
-        <id name="id" type="shipping_method_id" />
+        <id name="id" type="string" />
         <field name="name" type="string"/>
         <field name="description"  type="string" />
         <field name="isEnabled" type="boolean" />
-        <one-to-many field="shipping_lanes" target-entity="App\Domain\ShippingLanes" mapped-by="ShippingMethod">
-            <join-columns>
-                <join-column name="author_id" referenced-column-name="id" />
-            </join-columns>
+        <one-to-many field="shippingLanes" target-entity="App\Domain\ShippingLane" mapped-by="shippingMethod">
         </one-to-many>
     </entity>
 </doctrine-mapping>
