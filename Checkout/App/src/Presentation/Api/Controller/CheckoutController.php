@@ -52,11 +52,11 @@ class CheckoutController extends AbstractController
         return new Response($jsonresponse);
     }
 
-    public function saveCustomer(Request $request)
+    public function saveCustomer(string $checkoutId, Request $request)
     {
         $post = json_decode($request->getContent());
         $command = new SaveCustomerCommand(
-            $post->checkoutId,
+            $checkoutId,
             $post->email,
             $post->lastName,
             $post->firstName,
