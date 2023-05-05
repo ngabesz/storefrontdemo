@@ -58,3 +58,21 @@ Content-Type: application/json
 
 POST http://localhost:8090/checkout/api/checkout/8ebc790b-f34a-4a5c-bbc5-dbb661eb57f9/confirm
 Content-Type: application/json
+
+###
+
+POST http://localhost:8090/checkout/api/checkout/8ebc790b-f34a-4a5c-bbc5-dbb661eb57f9/payment-method
+Content-Type: application/json
+
+{
+  "paymentMethodId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed"
+}
+
+###
+
+POST http://localhost:8090/checkout/api/checkout/8ebc790b-f34a-4a5c-bbc5-dbb661eb57f9/shipping-method
+Content-Type: application/json
+
+{
+  "shippingMethodId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed"
+}
