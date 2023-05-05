@@ -57,3 +57,8 @@ services:
         tags:
             -   name: messenger.message_handler
                 handles: App\WebshopBundle\Application\Cart\RemoveItemFromCart\RemoveItemFromCartCommand
+
+    App\WebshopBundle\Application\Checkout\CreateCheckout\CreateCheckoutHandler:
+        tags:
+            - name: messenger.message_handler
+              handles: App\WebshopBundle\Application\Checkout\CreateCheckout\CreateCheckoutQuery

@@ -48,3 +48,13 @@ cart:
     path: /cart
     controller: App\WebshopBundle\Presentation\Web\Controller\CartController::index
     methods: GET
+
+checkout:
+    path: /checkout
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::index
+    methods: GET
+
+checkoutdummyinit:
+    path: /dummy/checkoutinit
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutDummyController::init
+    methods: POST
