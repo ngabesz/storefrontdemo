@@ -84,3 +84,8 @@ services:
         tags:
             - name: messenger.message_handler
               handles: App\WebshopBundle\Application\Shipping\GetShipping\GetShippingQuery
+
+    App\WebshopBundle\Application\Payment\GetPayment\GetPaymentHandler:
+        tags:
+            - name: messenger.message_handler
+              handles: App\WebshopBundle\Application\Payment\GetPayment\GetPaymentQuery

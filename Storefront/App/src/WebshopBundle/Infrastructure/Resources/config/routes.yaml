@@ -64,6 +64,16 @@ checkoutdummyinit:
     controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutDummyController::init
     methods: POST
 
+shipping_dummy:
+    path: /dummy/shipping
+    controller: App\WebshopBundle\Presentation\Web\Controller\ShippingDummyController::init
+    methods: POST
+
+payment_dummy:
+    path: /dummy/payment
+    controller: App\WebshopBundle\Presentation\Web\Controller\PaymentDummyController::init
+    methods: POST
+
 checkoutdummyinit2:
     path: /dummy/customer
     controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutDummyController::init2
@@ -73,8 +83,3 @@ shipping:
     path: /shipping
     controller: App\WebshopBundle\Presentation\Web\Controller\ShippingController::index
     methods: GET
-
-shipping_dummy:
-    path: /dummy/shipping
-    controller: App\WebshopBundle\Presentation\Web\Controller\ShippingDummyController::init
-    methods: POST
