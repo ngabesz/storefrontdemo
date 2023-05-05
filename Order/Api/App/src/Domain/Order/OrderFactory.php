@@ -35,20 +35,28 @@ class OrderFactory
         );
         $shippingAddress = new ShippingAddress(
                 $checkout->getShippingAddress()->getCountry(),
-                $checkout->getShippingAddress()->getPostcode(),
+                (int)$checkout->getShippingAddress()->getPostcode(),
                 $checkout->getShippingAddress()->getCity(),
                 $checkout->getShippingAddress()->getAddress(),
         );
         $billingAddress = new BillingAddress(
                 $checkout->getBillingAddress()->getCountry(),
-                $checkout->getBillingAddress()->getPostcode(),
+                (int)$checkout->getBillingAddress()->getPostcode(),
                 $checkout->getBillingAddress()->getCity(),
                 $checkout->getBillingAddress()->getAddress(),
         );
         $shippingMethod = new ShippingMethod(
-
+                $checkout->getShippingMethod()->getShippingMethodId(),
+                $checkout->getShippingMethod()->getShippingMethodName(),
+                $checkout->getShippingMethod()->getShippingMethodId(),
+                $checkout->getShippingMethod()->getShippingFee()
         );
-        $billingMethod = new BillingMethod();
+        $billingMethod = new BillingMethod(
+                $checkout->getPaymentMethod()->getPaymentMethodId(),
+                $checkout->getPaymentMethod()->getPaymentMethodName(),
+                $checkout->getPaymentMethod()->getPaymentMethodId(),
+                $checkout->getPaymentMethod()->getPaymentFee()
+        );
 
         return new Order(
                 $orderId,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dto;
+namespace App\Application\Order\Create\Dto;
 class OrderOutput
 {
 

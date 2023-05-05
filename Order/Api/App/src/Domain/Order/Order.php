@@ -67,7 +67,7 @@ class Order
         return $this->billingMethod;
     }
 
-    public function getProducts(): array
+    public function getProducts()
     {
         return $this->products;
     }

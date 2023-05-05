@@ -2,9 +2,8 @@
 
 namespace App\Presentation\Api\Controller;
 
+use App\Application\Order\Create\CreateOrderCommand;
 use App\Domain\Order\Order;
-use CreateOrderCommand;
-use Dto\OrderOutput;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\HandleTrait;
@@ -22,7 +21,11 @@ class CreateOrderController extends AbstractController
 
     public function index(Request $request)
     {
-        $checkoutId = $request->get('checkoutId');
+        try {
+            $checkoutId = json_decode($request->getContent(), true)['checkoutId'];
+        } catch (Throwable $throwable) {
+            return $this->json(['error' => $throwable->getMessage()]);
+        }
 
         if (!$checkoutId) {
             return $this->json(['error' => 'no checkoutId']);

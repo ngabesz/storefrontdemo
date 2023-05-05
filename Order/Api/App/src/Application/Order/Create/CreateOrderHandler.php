@@ -1,11 +1,12 @@
 <?php
 
-use App\Application\Order\Create\CreateOrderException;
+namespace App\Application\Order\Create;
+
 use App\Domain\Checkout\CheckoutAdapterInterface;
 use App\Domain\Order\Order;
 use App\Domain\Order\OrderFactory;
 use App\Domain\Order\OrderRepositoryInterface;
-use Dto\OrderOutput;
+use Throwable;
 
 class CreateOrderHandler
 {
