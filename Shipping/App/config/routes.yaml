@@ -1,4 +1,29 @@
 example_api:
     path: /
     controller: App\Presentation\Api\Controller\ExampleController::index
+    methods: [GET]
+
+fetch_shipping_methods:
+    path: /shipping-methods
+    controller: App\Presentation\Api\Controller\ShippingMethodsController::fetchShippingMethods
+    methods: [GET]
+
+fetch_shipping_method_by_id:
+    path: /shipping-methods/{shippingMethodId}
+    controller: App\Presentation\Api\Controller\ShippingMethodsController::getShippingMethodById
+    methods: [ GET ]
+
+create_shipping_method:
+    path: /shipping-methods
+    controller: App\Presentation\Api\Controller\ShippingMethodsController::createShippingMethod
+    methods: [POST]
+
+delete_shipping_method:
+    path: /shipping-methods/{shippingMethodId}
+    controller: App\Presentation\Api\Controller\ShippingMethodsController::deleteShippingMethod
+    methods: [DELETE]
+
+admin:
+    path: /admin
+    controller: App\Presentation\Api\Controller\AdminController::index
     methods:    [GET]

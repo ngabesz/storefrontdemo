@@ -1,0 +1,13 @@
+<doctrine-mapping>
+    <entity name="App\Domain\ShippingMethod" table="shipping_method">
+        <id name="id" type="string" />
+        <field name="name" type="string"/>
+        <field name="description"  type="string" />
+        <field name="isEnabled" type="boolean" />
+        <one-to-many field="shippingLanes" target-entity="App\Domain\ShippingLane" mapped-by="shippingMethod">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+    </entity>
+</doctrine-mapping>

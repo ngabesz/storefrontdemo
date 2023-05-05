@@ -49,6 +49,66 @@ cart:
     controller: App\WebshopBundle\Presentation\Web\Controller\CartController::index
     methods: GET
 
+checkout:
+    path: /checkout
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::index
+    methods: GET
+
+addCustomer:
+    path: /checkout
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::addCustomer
+    methods: POST
+
+checkoutStep2:
+    path: /checkout/step/2
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::createShippingMethod
+    methods: GET
+
+addShippingMethod:
+    path: /checkout/step/2
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::addShippingMethod
+    methods: POST
+
+checkoutStep3:
+    path: /checkout/step/3
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::createPaymentMethod
+    methods: GET
+
+addPaymentMethod:
+    path: /checkout/step/3
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::addPaymentMethod
+    methods: POST
+
+checkoutdummyinit:
+    path: /dummy/checkoutinit
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutDummyController::init
+    methods: POST
+
+shipping_dummy:
+    path: /dummy/shipping
+    controller: App\WebshopBundle\Presentation\Web\Controller\ShippingDummyController::init
+    methods: POST
+
+payment_dummy:
+    path: /dummy/payment
+    controller: App\WebshopBundle\Presentation\Web\Controller\PaymentDummyController::init
+    methods: POST
+
+checkoutdummyinit2:
+    path: /dummy/customer
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutDummyController::init2
+    methods: POST
+
+shipping:
+    path: /shipping
+    controller: App\WebshopBundle\Presentation\Web\Controller\ShippingController::index
+    methods: GET
+
+get_checkout_dummy_init:
+    path: /dummy/customer
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutDummyController::initGetCheckout
+    methods: POST
+    
 thankyou:
     path: /thankyou
     controller: App\WebshopBundle\Presentation\Web\Controller\ThankYouController::index

@@ -1,7 +1,7 @@
 FROM trafex/php-nginx:latest
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --chown=nobody . /var/www/html
+#COPY nginx.conf /etc/nginx/nginx.conf
+#COPY --chown=nobody . /var/www/html
 
 USER root
 
