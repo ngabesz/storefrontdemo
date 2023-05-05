@@ -21,6 +21,11 @@ const apps = [
     app: () => System.import('newsletter-admin'),
     activeWhen: location => location.pathname.startsWith('/subscribers') && authenticated,
   },
+  {
+    name: 'order-admin',
+    app: () => System.import('order-admin'),
+    activeWhen: location => location.pathname.startsWith('/orders') && authenticated,
+  },
 ]
 
 Promise.all([
