@@ -26,6 +26,13 @@
             >Subscribers</router-link>
           </li>
           <li>
+            <router-link
+                to="/orders"
+                class="nav-link"
+                active-class="active-nav-link"
+            >Orders</router-link>
+          </li>
+          <li>
             <a href="#" class="nav-link"  @click="Logout"> Logout </a>
           </li>
         </ul>
