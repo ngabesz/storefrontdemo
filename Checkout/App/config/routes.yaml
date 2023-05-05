@@ -1,4 +1,39 @@
-example_api:
-    path: /
-    controller: App\Presentation\Api\Controller\ExampleController::index
-    methods:    [GET]
+create_checkout:
+    path: /api/checkout
+    controller: App\Presentation\Api\Controller\CheckoutController::createCheckout
+    methods:    [POST]
+
+get_checkout:
+    path: /api/checkout/{checkoutId}
+    controller: App\Presentation\Api\Controller\CheckoutController::getCheckout
+    methods: [ GET ]
+
+save_customer:
+    path: /api/checkout/{checkoutId}/customer
+    controller: App\Presentation\Api\Controller\CheckoutController::saveCustomer
+    methods:    [POST]
+
+save_shipping_address:
+    path: /api/checkout/{checkoutId}/shipping-address
+    controller: App\Presentation\Api\Controller\CheckoutController::saveShippingAddress
+    methods:    [POST]
+
+save_billing_address:
+    path: /api/checkout/{checkoutId}/payment-address
+    controller: App\Presentation\Api\Controller\CheckoutController::saveBillingAddress
+    methods:    [POST]
+
+save_shipping_method:
+    path: /api/checkout/{checkoutId}/shipping-method
+    controller: App\Presentation\Api\Controller\CheckoutController::saveShippingMethod
+    methods:    [POST]
+
+save_payment_method:
+    path: /api/checkout/{checkoutId}/payment-method
+    controller: App\Presentation\Api\Controller\CheckoutController::savePaymentMethod
+    methods:    [POST]
+
+confirm:
+    path: /api/checkout/{checkoutId}/confirm
+    controller: App\Presentation\Api\Controller\CheckoutController::confirm
+    methods:    [POST]

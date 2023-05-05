@@ -6,7 +6,7 @@ use App\Domain\Specification\CartSpecificationFactory;
 use App\Domain\Specification\CartSpecification;
 use App\Infrastructure\Persistence\Doctrine\Specification\DqlCartAndSpecification;
 use App\Infrastructure\Persistence\Doctrine\Specification\DqlCartCreatedInIntervalSpecification;
-use App\Infrastructure\Persistence\Doctrine\Specification\DqlHasCartCustomerIdentifierSpecification;
+use App\Infrastructure\Persistence\Doctrine\Specification\DqlHasOrderIdentifierSpecification;
 use DateTimeImmutable;
 
 class DqlCartSpecificationFactory implements CartSpecificationFactory
@@ -19,7 +19,7 @@ class DqlCartSpecificationFactory implements CartSpecificationFactory
 
     public function createHasCartCustomerIdentifier(): CartSpecification
     {
-        return new DqlHasCartCustomerIdentifierSpecification();
+        return new DqlHasOrderIdentifierSpecification();
     }
 
     public function createAnd(CartSpecification ...$cartSpecifications): CartSpecification

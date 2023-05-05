@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\ShippingMethod" table="shipping_method">
+        <id name="shippingMethodId" type="entity_id" column="shipping_method_id" unique="true"/>
+        <field name="externalShippingMethodId" type="string" column="external_shipping_method_id"/>
+        <field name="shippingMethodName" type="string" column="shipping_method_name"/>
+        <field name="shippingFee" type="float" column="shipping_fee"/>
+    </entity>
+
+</doctrine-mapping>

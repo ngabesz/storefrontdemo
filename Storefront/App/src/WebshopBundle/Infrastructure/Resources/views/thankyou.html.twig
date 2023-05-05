@@ -1,0 +1,57 @@
+{% extends '@webshop/base.html.twig' %}
+
+{% block title %}Storefront Demo{% endblock %}
+
+{% block javascripts %}
+    <script src="https://www.cssscript.com/demo/confetti-falling-animation/confetti.js"></script>
+
+    <script>
+    window.addEventListener("DOMContentLoaded", (event) => {
+        startConfetti();
+    });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .center {
+        position: fixed; /* or absolute */
+        top: 50%;
+        left: 50%;
+        /* bring your own prefixes */
+        transform: translate(-50%, -50%);
+    }
+    .center h1 {
+        font-size: 66px;
+        font-family: serif;
+        color: #008000;
+        text-align: center;
+        animation: animate
+        1.5s linear infinite;
+    }
+
+    @keyframes animate {
+        0% {
+            opacity: 0;
+            color: #ea5c0f;
+        }
+
+        50% {
+            opacity: 0.7;
+            color: #e30fea;
+        }
+
+        100% {
+            opacity: 0;
+            color: #0feabe;
+        }
+    }
+</style>
+{% endblock %}
+
+
+{% block body %}
+    <div class="center">
+        <h1>Köszönjük a rendelésed!</h1>
+    </div>
+{% endblock %}
