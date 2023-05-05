@@ -13,6 +13,7 @@ use App\WebshopBundle\Application\Checkout\AddShippingAddress\AddShippingAddress
 use App\WebshopBundle\Application\Checkout\CreateCheckout\CreateCheckoutQuery;
 use App\WebshopBundle\Application\Checkout\Customer\CreateCustomerCommand;
 use App\WebshopBundle\Application\Checkout\GetCheckout\GetCheckoutQuery;
+use App\WebshopBundle\Application\Checkout\PaymentMethod\CreatePaymentMethodQuery;
 use App\WebshopBundle\Application\Payment\GetPayment\GetPaymentQuery;
 use App\WebshopBundle\Application\Shipping\GetShipping\GetShippingQuery;
 use App\WebshopBundle\Domain\Model\Checkout\Dto\Address;
@@ -127,8 +128,7 @@ class CheckoutController extends AbstractController
             $this->redirect('/checkout');
         }
 
-
-        $this->handle(new AddPaymentMethodCommand(
+        $this->handle(new CreatePaymentMethodQuery(
             $request->cookies->get('checkoutId'),
             $request->cookies->get('paymentMethodId')
         ));
