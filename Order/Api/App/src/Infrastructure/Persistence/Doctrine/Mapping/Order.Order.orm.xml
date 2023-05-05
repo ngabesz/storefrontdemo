@@ -3,14 +3,14 @@
                   xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Order" table="orders">
+    <entity name="App\Domain\Order\Order" table="orders">
         <id name="id" type="string" column="id" unique="true"/>
-        <embedded name="customer" class="App\Domain\Customer" />
-        <embedded name="shippingAddress" class="App\Domain\ShippingAddress" />
-        <embedded name="shippingMethod" class="App\Domain\ShippingMethod" />
-        <embedded name="billingAddress" class="App\Domain\BillingAddress" />
-        <embedded name="billingMethod" class="App\Domain\BillingMethod" />
-        <one-to-many field="products" target-entity="App\Domain\Product" mapped-by="order">
+        <embedded name="customer" class="App\Domain\Customer\Customer" />
+        <embedded name="shippingAddress" class="App\Domain\Shipping\ShippingAddress" />
+        <embedded name="shippingMethod" class="App\Domain\Shipping\ShippingMethod" />
+        <embedded name="billingAddress" class="App\Domain\Billing\BillingAddress" />
+        <embedded name="billingMethod" class="App\Domain\Billing\BillingMethod" />
+        <one-to-many field="products" target-entity="App\Domain\Product\Product" mapped-by="order">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

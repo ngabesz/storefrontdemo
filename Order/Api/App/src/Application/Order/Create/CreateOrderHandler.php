@@ -8,9 +8,9 @@ use Dto\OrderOutput;
 class CreateOrderHandler
 {
     public function __construct(
-            private OrderRepositoryInterface $orderRepository,
-            private CheckoutAdapterInterface $checkoutAdapter,
-            private OrderFactory $orderFactory
+            private readonly OrderRepositoryInterface $orderRepository,
+            private readonly CheckoutAdapterInterface $checkoutAdapter,
+            private readonly OrderFactory $orderFactory
     ) {
     }
 
@@ -24,7 +24,6 @@ class CreateOrderHandler
         } catch (Throwable $throwable) {
 
         }
-
 
         return $orderOutput;
     }
