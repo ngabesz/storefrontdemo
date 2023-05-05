@@ -59,6 +59,26 @@ addCustomer:
     controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::addCustomer
     methods: POST
 
+checkoutStep2:
+    path: /checkout/step/2
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::createShippingMethod
+    methods: GET
+
+addShippingMethod:
+    path: /checkout/step/2
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::addShippingMethod
+    methods: POST
+
+checkoutStep3:
+    path: /checkout/step/3
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::createPaymentMethod
+    methods: GET
+
+addPaymentMethod:
+    path: /checkout/step/3
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::addPaymentMethod
+    methods: POST
+
 checkoutdummyinit:
     path: /dummy/checkoutinit
     controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutDummyController::init
