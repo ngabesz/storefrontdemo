@@ -146,8 +146,6 @@
     </table>
 </body>
 <script>
-const uuid = "fasdhifas-asdgasdgadsg-agasdga";
-const uuid2 = "elfbar-asdgasdgadsg-agasdgga";
 let shippingLanes = {};
 
 function makeid(length) {
@@ -162,27 +160,35 @@ function makeid(length) {
     return result;
 }
 
-$("#table tbody").append(`
-    <tr>
-        <td>${uuid}</td>
-        <td><input id="${uuid}_name" value="GLS"></td>
-        <td><input id="${uuid}_description" value="GLS Házhozszállítás"></td>
-        <td><input type="checkbox" checked id="${uuid}_isEnabled"></td>
-        <td><button class="editLanes" onclick="editLanes('${uuid}')">Edit lanes</button></td>
-        <td><button class="save" onclick="saveMethod('${uuid}')">Save</button> <button class="delete" onclick="deleteMethod('${uuid}')">Delete</button></td>
-    </tr>
-`)
-
-$("#table tbody").append(`
-    <tr>
-        <td>${uuid2}</td>
-        <td><input id="${uuid2}_name" value="DPD"></td>
-        <td><input id="${uuid2}_description" value="DPD Házhozszállítás"></td>
-        <td><input type="checkbox" id="${uuid2}_isEnabled"></td>
-        <td><button class="editLanes" onclick="editLanes('${uuid2}')">Edit lanes</button></td>
-        <td><button class="save" onclick="saveMethod('${uuid2}')">Save</button> <button class="delete" onclick="deleteMethod('${uuid2}')">Delete</button></td>
-    </tr>
-`)
+function getAllShippingMethods() {
+    request("/shipping-methods", function (data) {
+        data = data.shippingMethods;
+        for(let i in data) {
+            let uuid = data[i].id;
+            let lanes = data[i].shippingLanes;
+            $("#table tbody").append(`
+                <tr>
+                    <td>${uuid}</td>
+                    <td><input id="${uuid}_name" value="${data[i].name}"></td>
+                    <td><input id="${uuid}_description" value="${data[i].description}"></td>
+                    <td><input type="checkbox" ${data[i].enabled ? "checked" : ""} id="${uuid}_isEnabled"></td>
+                    <td><button class="editLanes" onclick="editLanes('${uuid}')">Edit lanes</button></td>
+                    <td><button class="save" onclick="saveMethod('${uuid}')">Save</button> <button class="delete" onclick="deleteMethod('${uuid}')">Delete</button></td>
+                </tr>
+            `)
+                if(!shippingLanes[uuid]) {
+                    shippingLanes[uuid] = []
+                };
+                for(let j in lanes)
+                shippingLanes[uuid].push({
+                    min: lanes[j].minGrossPrice,
+                    max: lanes[j].maxGrossPrice,
+                    price: lanes[j].cost
+                })
+        }    
+    });
+    
+}
 
 function validate(id) {
     if($(`#${id} input`).val().trim().length == 0) return false;
@@ -262,7 +268,7 @@ function deleteLane(id, uuid) {
     $(`#${id}`).remove();
 }
 
-function request(url, method = "GET", formData = {}) {
+function request(url, fn, method = "GET", formData = {}) {
     $.ajax({
         url: url,
         contentType: false,
@@ -270,8 +276,10 @@ function request(url, method = "GET", formData = {}) {
         data: formData,
         type: method,
         success: function(data) {
-            return data
+            fn(data)
         }
     })
 }
+
+getAllShippingMethods()
 </script>
