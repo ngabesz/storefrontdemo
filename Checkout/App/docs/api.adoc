@@ -39,9 +39,7 @@ POST /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed/customer
 response
 [source,json]
 ----
-  {
-    "msg": "OK"
-  }
+include::./api/response/checkout.json[]
 ----
 
 == Save Shipping Address
@@ -63,12 +61,10 @@ Content-Type: application/json
 response:
 [source,json]
 ----
-{
-  "msg": "OK"
-}
+include::./api/response/checkout.json[]
 ----
 
-== Save Payment Address
+== Save Billing Address
 request:
 [source,httprequest]
 ----
@@ -86,9 +82,7 @@ Content-Type: application/json
 response:
 [source,json]
 ----
-{
-  "msg": "OK"
-}
+include::./api/response/checkout.json[]
 ----
 
 == Save Shipping Method
@@ -106,10 +100,7 @@ POST /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed/shipping-method
 response:
 [source,json]
 ----
-
-{
-    "msg": "OK"
-}
+include::./api/response/checkout.json[]
 ----
 
 == Save Payment Method
@@ -127,10 +118,7 @@ POST /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed/payment-method
 response:
 [source,json]
 ----
-
-{
-    "msg": "OK"
-}
+include::./api/response/checkout.json[]
 ----
 
 == Confirm
@@ -143,9 +131,7 @@ POST /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed/confirm
 response
 [source,json]
 ----
-  {
-    "msg": "OK"
-  }
+include::./api/response/checkout.json[]
 ----
 
 == Get checkout
@@ -155,44 +141,10 @@ response
 GET /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed
 ----
 
+response:
 [source,json]
 ----
-{
-  "checkoutId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
-  "status": "PENDING",
-  "customer": {
-    "email": "asd@asd.hu",
-    "lastName": "lastname",
-    "firstName": "firstname",
-    "phone": "phone"
-  },
-  "shippingAddress": {
-    "address": "some str 123",
-    "city": "Gotham",
-    "postcode": "1233",
-    "country": "HU"
-  },
-  "billingAddress": {
-    "address": "some str 123",
-    "city": "Gotham",
-    "postcode": "1233",
-    "country": "HU"
-  },
-  "shippingMethod": {
-    "shippingMethodId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
-    "shippingMethodName": "GLS",
-    "shippingFee": 3123
-  },
-  "paymentMethod": {
-    "paymentMethodId": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
-    "paymentMethodName": "BARION",
-    "paymentFee": 123
-  },
-  "checkoutTotal": {
-    "value": 123.345,
-    "currency": "HUF"
-  }
-}
+include::./api/response/checkout.json[]
 ----
 
 == Statuses
@@ -204,14 +156,14 @@ GET /checkout/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed
 ----
 class Checkout {
     - checkoutId: UUID
-    - cart: Cart
+    - status: CheckoutStatus [enum: PENDING, COMPLETED]
     - customer: Customer
     - shippingAddress: Address
     - billingAddress: Address
     - shippingMethod: ShippingMethod
     - paymentMethod: PaymentMethod
-    - status: CheckoutStatus [enum: PENDING, COMPLETED]
     + checkoutTotal(): CheckoutTotal
+    - cart: Cart
 }
 
 class Customer {
@@ -245,17 +197,34 @@ class CheckoutTotal {
     - currency: String
 }
 
+class Cart {
+    - cartId: String
+    - cartItems: CartItem
+    - cartTotal: Number
+}
+
+class CartItem {
+    - id: String
+    - sku: String
+    - name: String
+    - quantity: Number
+    - price: Number
+    - total: Number
+}
+
 enum CheckoutStatus {
     PENDING
     COMPLETED
 }
 
-Checkout <-- Customer
-Checkout <-- Address
-Checkout <- ShippingMethod
-PaymentMethod -> Checkout
-Checkout <-- CheckoutStatus
-Checkout <-- CheckoutTotal
+Checkout <-- Customer : 1 : 1
+Checkout <-- Address : 1 : 1
+Checkout <- ShippingMethod : 1 : 1
+PaymentMethod -> Checkout : 1 : 1
+Checkout <-- CheckoutStatus : 1 : 1
+Checkout <-- CheckoutTotal : 1 : 1
+Checkout <-- Cart : 1 : 1
+Cart <-- CartItem : 1 : N
 ----
 
 

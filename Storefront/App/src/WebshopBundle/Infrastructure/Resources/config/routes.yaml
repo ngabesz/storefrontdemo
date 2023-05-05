@@ -108,3 +108,8 @@ get_checkout_dummy_init:
     path: /dummy/customer
     controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutDummyController::initGetCheckout
     methods: POST
+    
+thankyou:
+    path: /thankyou
+    controller: App\WebshopBundle\Presentation\Web\Controller\ThankYouController::index
+    methods: GET

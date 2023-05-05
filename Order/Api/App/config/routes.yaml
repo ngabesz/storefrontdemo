@@ -1,0 +1,14 @@
+create_order:
+    path: /api/orders
+    controller: App\Presentation\Api\Controller\CreateOrderController::index
+    methods:    [POST]
+
+list_orders:
+    path: /api/orders
+    controller: App\Presentation\Api\Controller\ListOrderController::indexAction
+    methods: [ GET ]
+
+get_order:
+    path: /api/orders/{id}
+    controller: App\Presentation\Api\Controller\ListOrderController::getAction
+    methods: [ GET ]

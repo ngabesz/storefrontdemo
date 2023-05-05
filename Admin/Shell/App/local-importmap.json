@@ -3,6 +3,7 @@
         "admin": "http://localhost:5000/main.js",
         "admin-login": "http://localhost:5003/app.js",
         "customer-admin": "http://localhost:5001/app.js",
+        "order-admin": "http://localhost:5009/app.js",
         "newsletter-admin": "http://localhost:5002/app.js",
         "admin-shared": "http://localhost:5004/app.js",
         "admin-navbar": "http://localhost:5005/app.js"

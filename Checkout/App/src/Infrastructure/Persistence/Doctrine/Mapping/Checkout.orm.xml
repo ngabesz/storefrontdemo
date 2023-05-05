@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Checkout" table="checkout">
+        <id name="checkoutId" type="entity_id" column="checkout_id" unique="true"/>
+        <field name="checkoutStatus" type="string" column="checkout_status" enum-type="App\Domain\CheckoutStatus" />
+        <one-to-one field="customer" target-entity="Customer">
+            <join-column name="customer_id" referenced-column-name="customer_id" />
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="shippingAddress" target-entity="ShippingAddress">
+            <join-column name="shipping_address_id" referenced-column-name="address_id" />
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="billingAddress" target-entity="BillingAddress">
+            <join-column name="billing_address_id" referenced-column-name="address_id" />
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="cart" target-entity="Cart">
+            <join-column name="cart_id" referenced-column-name="cart_id" />
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="shippingMethod" target-entity="ShippingMethod">
+            <join-column name="shipping_method_id" referenced-column-name="shipping_method_id" />
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="paymentMethod" target-entity="PaymentMethod">
+            <join-column name="payment_method_id" referenced-column-name="payment_method_id" />
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+    </entity>
+
+</doctrine-mapping>

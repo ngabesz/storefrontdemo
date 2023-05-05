@@ -98,7 +98,7 @@ services:
       dockerfile: Dockerfile
     container_name: 'order_api'
     volumes:
-      - ./Order/App:/var/www/html
+      - ./Order/Api/App:/var/www/html
       - ./Order/Docker/php.ini:/etc/php81/conf.d/settings.ini
       - ./Order/Docker/nginx.conf:/etc/nginx/conf.d/server.conf
     ports:
@@ -273,6 +273,22 @@ services:
       - HOST_URL
     ports:
       - "5002:5002"
+    command: ["npm", "run", "serve"]
+
+  order_admin:
+    build:
+      context: Order/Admin
+      dockerfile: Docker/Dockerfile
+    container_name: 'order_admin'
+    volumes:
+      - ./Order/Admin/App:/src
+      - /src/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - HOST_PORT
+      - HOST_URL
+    ports:
+      - "5009:5009"
     command: ["npm", "run", "serve"]
 
   db:
