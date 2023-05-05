@@ -78,3 +78,24 @@ services:
         tags:
             - name: messenger.message_handler
               handles: App\WebshopBundle\Application\Checkout\ShippingMethod\CreateShippingMethodQuery
+
+    App\WebshopBundle\Application\Checkout\Customer\CreateCustomerHandler:
+        tags:
+            - name: messenger.message_handler
+              handles: App\WebshopBundle\Application\Checkout\Customer\CreateCustomerQuery
+
+    App\WebshopBundle\Application\Checkout\PaymentMethod\CreatePaymentMethodHandler:
+        tags:
+            - name: messenger.message_handler
+              handles: App\WebshopBundle\Application\Checkout\PaymentMethod\CreatePaymentMethodQuery
+
+
+    App\WebshopBundle\Application\Checkout\ShippingMethod\CreateShippingMethodHandler:
+        tags:
+            - name: messenger.message_handler
+              handles: App\WebshopBundle\Application\Checkout\ShippingMethod\CreateShippingMethodQuery
+
+    App\WebshopBundle\Application\Shipping\GetShipping\GetShippingHandler:
+        tags:
+            - name: messenger.message_handler
+              handles: App\WebshopBundle\Application\Shipping\GetShipping\GetShippingQuery
