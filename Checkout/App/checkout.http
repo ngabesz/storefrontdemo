@@ -21,10 +21,40 @@ Content-Type: application/json
   "phone": "osidfjosidjf"
 }
 
+###
+
+POST http://localhost:8090/checkout/api/checkout/8ebc790b-f34a-4a5c-bbc5-dbb661eb57f9/payment-address
+Content-Type: application/json
+
+{
+  "country": "HU",
+  "postcode": "1234",
+  "city": "Gotham",
+  "address": "Some str 123"
+}
+
+###
+
+POST http://localhost:8090/checkout/api/checkout/8ebc790b-f34a-4a5c-bbc5-dbb661eb57f9/shipping-address
+Content-Type: application/json
+
+{
+  "country": "HU",
+  "postcode": "1234",
+  "city": "Gotham",
+  "address": "Some str 123"
+}
+
 <> 2023-05-05T181616.500.html
 <> 2023-05-05T181315.500.html
 
 ###
 
 GET http://localhost:8090/checkout/api/checkout/89a46369-a0d2-42cd-929f-592f4f469406
+Content-Type: application/json
+
+
+###
+
+POST http://localhost:8090/checkout/api/checkout/8ebc790b-f34a-4a5c-bbc5-dbb661eb57f9/confirm
 Content-Type: application/json
