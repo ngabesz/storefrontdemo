@@ -4,11 +4,13 @@ namespace App\Presentation\Api\Controller;
 
 use App\Application\ConfirmCheckout\ConfirmCheckoutCommand;
 use App\Application\CreateCheckout\CreateCheckoutCommand;
+use App\Application\GetCheckout\GetCheckoutQuery;
 use App\Application\SaveCustomer\SaveCustomerCommand;
 use App\Application\SaveShippingAddress\SaveShippingAddressCommand;
 use App\Application\SaveBillingAddress\SaveBillingAddressCommand;
 use App\Application\SaveShippingMethod\SaveShippingMethodCommand;
-use Nyholm\Psr7\Request;
+use App\Application\SavePaymentMethod\SavePaymentMethodCommand;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\HandleTrait;
@@ -39,7 +41,15 @@ class CheckoutController extends AbstractController
 
     public function getCheckout(Request $request)
     {
+        $post = json_decode($request->getContent());
+        $query = new GetCheckoutQuery($post->checkoutId);
 
+        $response = $this->handle(
+            $query
+        );
+
+        $jsonresponse = $this->serializer->serialize($response,'json');
+        return new Response($jsonresponse);
     }
 
     public function saveCustomer(Request $request)
@@ -101,7 +111,15 @@ class CheckoutController extends AbstractController
 
     public function savePaymentMethod(Request $request)
     {
+        $post = json_decode($request->getContent());
+        $command = new SavePaymentMethodCommand($post->checkoutId);
 
+        $response = $this->handle(
+            $command
+        );
+
+        $jsonresponse = $this->serializer->serialize($response,'json');
+        return new Response($jsonresponse);
     }
 
     public function saveShippingMethod(Request $request)

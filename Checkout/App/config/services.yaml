@@ -30,6 +30,9 @@ services:
 #              handles: App\Application\Example\ExampleQuery
 #
     App\Domain\CheckoutRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\CheckoutRepository'
+    App\Domain\Api\CartApiInterface: '@App\Infrastructure\Adapter\CartApi\CartApi'
+    App\Domain\Api\ShippingApiInterface: '@App\Infrastructure\Adapter\ShippingApi\ShippingApi'
+    App\Domain\Api\PaymentApiInterface: '@App\Infrastructure\Adapter\PaymentApi\PaymentApi'
 
     App\Application\CreateCheckout\CreateCheckoutHandler:
         tags:

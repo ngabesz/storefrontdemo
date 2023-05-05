@@ -3,8 +3,9 @@
 namespace App\Domain;
 
 use App\Domain\Shared\EntityId;
+use JsonSerializable;
 
-class CartItem
+class CartItem implements JsonSerializable
 {
     public function __construct(
         private EntityId $cartItemId,
@@ -59,5 +60,19 @@ class CartItem
     public function getCart(): Cart
     {
         return $this->cart;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'cartItemId' => $this->cartItemId,
+            'externalId' => $this->externalId,
+            'sku' => $this->sku,
+            'name' => $this->name,
+            'quantity' => $this->quantity,
+            'price' => $this->price,
+            'total' => $this->total,
+            'cart' => null,
+        ];
     }
 }
