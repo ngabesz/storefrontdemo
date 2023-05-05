@@ -2,6 +2,7 @@
 
 namespace App\Presentation\Api\Controller;
 
+use App\Domain\Order\Order;
 use CreateOrderCommand;
 use Dto\OrderOutput;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,10 +28,9 @@ class CreateOrderController extends AbstractController
             return $this->json(['error' => 'no checkoutId']);
         }
 
-
         try {
             $createOrderCommand = new CreateOrderCommand($checkoutId);
-            /** @var OrderOutput $orderOutput */
+            /** @var Order $orderOutput */
             $orderOutput = $this->handle($createOrderCommand);
 
             return $this->json($orderOutput);

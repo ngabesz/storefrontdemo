@@ -2,15 +2,14 @@
 
 namespace App\Domain\Order;
 
-use App\Domain\Cart;
 use App\Domain\Order\Specification\OrderSpecification;
 
 interface OrderRepositoryInterface
 {
-    public function add(Order $order);
+    public function add(Order $order): Order;
 
     /**
-     * @return Cart[]
+     * @return Order[]
      */
     public function query(OrderSpecification $orderSpecification): array;
 }

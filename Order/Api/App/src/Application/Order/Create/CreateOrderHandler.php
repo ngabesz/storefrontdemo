@@ -1,6 +1,8 @@
 <?php
 
+use App\Application\Order\Create\CreateOrderException;
 use App\Domain\Checkout\CheckoutAdapterInterface;
+use App\Domain\Order\Order;
 use App\Domain\Order\OrderFactory;
 use App\Domain\Order\OrderRepositoryInterface;
 use Dto\OrderOutput;
@@ -14,17 +16,18 @@ class CreateOrderHandler
     ) {
     }
 
-    public function __invoke(CreateOrderCommand $createOrderCommand): OrderOutput
+    public function __invoke(CreateOrderCommand $createOrderCommand): Order
     {
         $checkout = $this->checkoutAdapter->getCheckoutById($createOrderCommand->getCheckoutId());
 
         try {
             $order = $this->orderFactory->createOrderFromCheckout($checkout);
-            $this->orderRepository->add($order);
+            $order = $this->orderRepository->add($order);
+
+            // todo: make it orderOutput
+            return $order;
         } catch (Throwable $throwable) {
-
+            throw new CreateOrderException($throwable->getMessage());
         }
-
-        return $orderOutput;
     }
 }

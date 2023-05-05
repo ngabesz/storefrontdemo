@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Infrastructure\Persistence\Doctrine\Repository;
+
 use App\Domain\Order\Order;
 use App\Domain\Order\OrderRepositoryInterface;
 use App\Domain\Order\Specification\OrderSpecification;
@@ -11,15 +13,16 @@ class OrderRepository extends ServiceEntityRepository implements OrderRepository
 
     public function __construct(ManagerRegistry $registry)
     {
-        // todo Cart csere
-//        parent::__construct($registry, Cart::class);
+        parent::__construct($registry, Order::class);
     }
 
-    public function add(Order $order)
+    public function add(Order $order): Order
     {
-        // TODO: Implement add() method.
-    }
+        $this->_em->persist($order);
+        $this->_em->flush();
 
+        return $order;
+    }
 
     public function query(OrderSpecification $orderSpecification): array
     {

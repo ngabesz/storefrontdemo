@@ -1,4 +1,4 @@
-example_api:
-    path: /
-    controller: App\Presentation\Api\Controller\ExampleController::index
-    methods:    [GET]
+create_order:
+    path: /orders
+    controller: App\Presentation\Api\Controller\CreateOrderController::index
+    methods:    [POST]
