@@ -2,13 +2,13 @@
 
 namespace App\DataFixtures;
 
-use App\Domain\BillingAddress;
-use App\Domain\BillingMethod;
-use App\Domain\Customer;
-use App\Domain\Order;
-use App\Domain\Product;
-use App\Domain\ShippingAddress;
-use App\Domain\ShippingMethod;
+use App\Domain\Billing\BillingAddress;
+use App\Domain\Billing\BillingMethod;
+use App\Domain\Customer\Customer;
+use App\Domain\Order\Order;
+use App\Domain\Product\Product;
+use App\Domain\Shipping\ShippingAddress;
+use App\Domain\Shipping\ShippingMethod;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Uid\Uuid;

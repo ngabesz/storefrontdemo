@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Customer;
 
 class Customer
 {
@@ -19,6 +19,12 @@ class Customer
      */
     public function __construct(string $id, string $firstName, string $lastName, string $email, string $phoneNumber)
     {
+        $filteredEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+        if ($filteredEmail) {
+            $email = $filteredEmail;
+        } else {
+            throw new InvalidEmailException('Invalid email');
+        }
         $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;

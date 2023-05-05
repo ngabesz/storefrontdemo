@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Billing;
 
-class ShippingMethod
+class BillingMethod
 {
 
     private string $id;

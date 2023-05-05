@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Shipping;
 
-class BillingAddress
+class ShippingAddress
 {
     private string $country;
     private int $zipCode;
@@ -22,6 +22,7 @@ class BillingAddress
         $this->city = $city;
         $this->address = $address;
     }
+
 
     /**
      * @return string
@@ -54,5 +55,6 @@ class BillingAddress
     {
         return $this->address;
     }
-    
+
+
 }

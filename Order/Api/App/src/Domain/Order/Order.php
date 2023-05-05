@@ -1,6 +1,13 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Order;
+
+use App\Domain\Billing\BillingAddress;
+use App\Domain\Billing\BillingMethod;
+use App\Domain\Customer\Customer;
+use App\Domain\Product\Product;
+use App\Domain\Shipping\ShippingAddress;
+use App\Domain\Shipping\ShippingMethod;
 
 class Order
 {
@@ -74,6 +81,6 @@ class Order
     public function getTotal(): float
     {
         //TODO: calculate total
-        return $this->total;
+        return 0;
     }
 }

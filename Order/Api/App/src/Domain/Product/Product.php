@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Product;
+
+use App\Domain\Order\Order;
 
 class Product
 {
