@@ -70,3 +70,15 @@ services:
             -   name: messenger.message_handler
                 bus: command.bus
                 handles: App\Application\ConfirmCheckout\ConfirmCheckoutCommand
+
+    App\Application\SavePaymentMethod\SavePaymentMethodHandler:
+        tags:
+            -   name: messenger.message_handler
+                bus: command.bus
+                handles: App\Application\SavePaymentMethod\SavePaymentMethodCommand
+
+    App\Application\SaveShippingMethod\SaveShippingMethodHandler:
+        tags:
+            -   name: messenger.message_handler
+                bus: command.bus
+                handles: App\Application\SaveShippingMethod\SaveShippingMethodCommand

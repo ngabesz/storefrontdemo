@@ -21,13 +21,13 @@ class PaymentApi implements PaymentApiInterface
 
     public function getPaymentMethod(string $externalPaymentMethodId): PaymentMethod
     {
-        $response = $this->client->request('GET', "/payment/api/paymentMethod/list/$externalPaymentMethodId");
+        $response = $this->client->request('GET', "/payment/api/paymentMethod/$externalPaymentMethodId");
         $data = json_decode($response->getContent(), true);
         return new PaymentMethod(
             $this->entityIdGenerator->generate(),
             $externalPaymentMethodId,
             $data['name'],
-            $data['cost']
+            $data['fee']
         );
     }
 }
