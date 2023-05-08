@@ -10,7 +10,9 @@ use App\WebshopBundle\Application\Cart\GetCart\Dto\GetCartOutput;
 use App\WebshopBundle\Application\Cart\GetCart\GetCartQuery;
 use App\WebshopBundle\Application\Cart\RemoveItemFromCart\RemoveItemFromCartCommand;
 use App\WebshopBundle\Application\Checkout\AddShippingAddress\AddShippingAddressCommand;
+use App\WebshopBundle\Application\Checkout\ConfirmCheckout\ConfirmCheckoutCommand;
 use App\WebshopBundle\Application\Checkout\CreateCheckout\CreateCheckoutQuery;
+use App\WebshopBundle\Application\Checkout\CreateCheckout\Dto\CreateCheckoutOutput;
 use App\WebshopBundle\Application\Checkout\Customer\CreateCustomerCommand;
 use App\WebshopBundle\Application\Checkout\GetCheckout\GetCheckoutQuery;
 use App\WebshopBundle\Application\Checkout\PaymentMethod\CreatePaymentMethodQuery;
@@ -20,6 +22,7 @@ use App\WebshopBundle\Domain\Model\Checkout\Dto\Address;
 use App\WebshopBundle\Domain\Model\Checkout\Dto\Customer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,11 +43,14 @@ class CheckoutController extends AbstractController
     public function index(Request $request)
     {
         if ($request->cookies->has('cart_id')) {
-            $checkout = $this->handle(new CreateCheckoutQuery($request->cookies->get('cart_id')));
-            $request->cookies->set('checkoutId', $checkout->getCheckoutId());
-            return $this->render('@webshop/customer_space/checkout.html.twig', []);
+            /** @var CreateCheckoutOutput $checkoutOutput */
+            $checkoutOutput = $this->handle(new CreateCheckoutQuery($request->cookies->get('cart_id')));
+            $response = $this->render('@webshop/customer_space/checkout.html.twig', []);
+            $response->headers->setCookie(Cookie::create('checkoutId', $checkoutOutput->getCheckoutId()));
+            return $response;
         }
-        $this->redirect('/cart');
+
+        return new RedirectResponse('/cart');
     }
 
     public function addCustomer(Request $request)
@@ -134,5 +140,28 @@ class CheckoutController extends AbstractController
         ));
 
         $this->redirect('/checkout/step/3');
+    }
+
+    public function confirm(Request $request)
+    {
+        if (!$request->cookies->has('checkoutId')) {
+            $this->redirect('/checkout');
+        }
+
+        try {
+            $this->handle(new ConfirmCheckoutCommand(
+                $request->cookies->get('checkoutId')
+            ));
+        } catch (HandlerFailedException $e) {
+            return new JsonResponse(
+                [
+                    'status' => 'szoptad',
+                    'message' => $e->getMessage()
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        $this->redirect('/thankyou');
     }
 }

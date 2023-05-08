@@ -17,7 +17,11 @@ interface CheckoutRepositoryInterface
     public function addPaymentAddress(Address $address): Checkout;
     public function addShippingMethod(ShippingMethod $shippingMethod): Checkout;
     public function addPaymentMethod(string $checkoutId, string $paymentMethodId): Checkout;
-    public function confirmCheckout(Checkout $checkout): Checkout;
+
+    /**
+     * @throws DomainException
+     */
+    public function confirmCheckout(string $checkoutId): Checkout;
     public function addCheckoutTotal(CheckoutTotal $checkoutTotal): Checkout;
 
     /**

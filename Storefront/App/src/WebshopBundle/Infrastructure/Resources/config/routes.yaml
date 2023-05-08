@@ -79,6 +79,11 @@ addPaymentMethod:
     controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::addPaymentMethod
     methods: POST
 
+confirm:
+    path: checkout/{checkoutId}/confirm
+    controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutController::confirm
+    methods: GET
+
 checkoutdummyinit:
     path: /dummy/checkoutinit
     controller: App\WebshopBundle\Presentation\Web\Controller\CheckoutDummyController::init
