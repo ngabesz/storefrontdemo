@@ -18,6 +18,7 @@ use App\WebshopBundle\Domain\Model\Checkout\Dto\ShippingMethod;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use function dd;
+use function floatval;
 use function json_decode;
 
 class HttpCheckoutRepository implements CheckoutRepositoryInterface
@@ -117,9 +118,32 @@ class HttpCheckoutRepository implements CheckoutRepositoryInterface
         $checkout->setPaymentMethode($shippingMethod);
         return $checkout;
     }
-    public function confirmCheckout(Checkout $checkout): Checkout{
-        return new Checkout();
+    public function confirmCheckout(string $checkoutId): Checkout{
+        try {
+            $response = $this->client->post($this->url . "/" . $checkoutId . "confirm", [
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ],
+                'verify' => 0
+            ]);
+        } catch (GuzzleException $e) {
+            throw new DomainException($e->getMessage());
+        }
+
+        $response = json_decode($response->getBody()->getContents(), true);
+
+        $checkout = new Checkout();
+        $checkout->setId($response['checkoutId']);
+        $checkout->setStatus($response['status']);
+        $checkout->setCustomer(new Customer($response['customer']['email'],$response['customer']['firstName'],$response['customer']['lastName'],$response['customer']['phone']));
+        $checkout->setCheckoutTotal(new CheckoutTotal(floatval($response['checkoutTotal']['value']), $response['checkoutTotal']['currency']));
+        $checkout->setPaymentMethode(new PaymentMethod($response['paymentMethod']['paymentMethodId'], $response['paymentMethod']['paymentMethodName'], floatval($response['paymentMethod']['paymentFee'])));
+        $checkout->setShippingMethod(new ShippingMethod($response['shippingMethod']['shippingMethodId'], $response['shippingMethod']['shippingMethodName'], floatval($response['shippingMethod']['shippingFee'])));
+        $checkout->setPaymentAddress(new Address($response['billingAddress']['address'], $response['billingAddress']['city'], $response['billingAddress']['postcode'], $response['billingAddress']['country']));
+        $checkout->setShippingAddress(new Address($response['shippingAddress']['address'], $response['shippingAddress']['city'], $response['shippingAddress']['postcode'], $response['shippingAddress']['country']));
+        return $checkout;
     }
+
     public function addCheckoutTotal(CheckoutTotal $checkoutTotal): Checkout{
         return new Checkout();
     }
@@ -132,8 +156,6 @@ class HttpCheckoutRepository implements CheckoutRepositoryInterface
             'json' => ['checkoutId' => $checkoutId],
             'verify' => 0
         ]);
-
-        $response = json_decode($response->getBody()->getContents(), true);
 
         $checkout = new Checkout();
         $checkout->setId($response['checkoutId']);

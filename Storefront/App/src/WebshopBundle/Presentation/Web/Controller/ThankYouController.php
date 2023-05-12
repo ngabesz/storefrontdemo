@@ -12,8 +12,6 @@ class ThankYouController extends AbstractController
 {
     public function index(Request $request)
     {
-
-
         return $this->render('@webshop/thankyou.html.twig');
     }
 }
