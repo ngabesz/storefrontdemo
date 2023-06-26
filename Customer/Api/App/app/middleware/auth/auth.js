@@ -11,14 +11,23 @@ const verifyToken = (req, res, next) => {
     }
 
     try {
-        cert = fs.readFileSync(__dirname + '/../../keys/public.pem')
-        const decoded = jwt.verify(token, cert, {ignoreNotBefore:true});
-        req.user = decoded;
+        cert = fs.readFileSync(__dirname + '/../../../keys/public.pem')
+        const tokenContent = jwt.verify(token, cert, {ignoreNotBefore:true});
+
+        var userScopes = tokenContent.scopes;
+        var requiredScopes = req.requiredScopes;
+
+        if (requiredScopes.every(scope => userScopes.includes(scope))) {
+            req.user = tokenContent;
+            next();
+        } else {
+            res.status(403).send("Forbidden");
+        }
+
     } catch (err) {
         console.log(err);
         return res.status(401).send("Invalid Token");
     }
-    return next();
 };
 
 module.exports = verifyToken;

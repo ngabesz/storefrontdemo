@@ -3,11 +3,14 @@
 namespace App\Presentation\Api\Controller;
 
 use App\Application\Order\List\ListOrderFilteredQuery;
+use App\Presentation\Api\Security\Symfony\Voter\OrderAccessTokenVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ListOrderController extends AbstractController
 {
@@ -18,8 +21,10 @@ class ListOrderController extends AbstractController
         $this->messageBus = $messageBus;
     }
 
-    public function indexAction(): JsonResponse
+    public function indexAction(Request $request): JsonResponse
     {
+        $this->denyAccessUnlessGranted(OrderAccessTokenVoter::ORDER_READ, $request);
+
         try {
             $response = $this->handle(new ListOrderFilteredQuery(null));
             $response = ['orders' => $response];
@@ -30,8 +35,10 @@ class ListOrderController extends AbstractController
         }
     }
 
-    public function getAction(string $id): JsonResponse
+    public function getAction(string $id, Request $request): JsonResponse
     {
+        $this->denyAccessUnlessGranted(OrderAccessTokenVoter::ORDER_READ, $request);
+
         try {
             $response = $this->handle(new ListOrderFilteredQuery($id));
             if (!empty($response)) {

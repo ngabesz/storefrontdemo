@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div v-for="order in orders" v-bind:key="order.id">
+    <div v-if="errors">{{this.errors}}</div>
+    <div v-else v-for="order in orders" v-bind:key="order.id">
       <router-link :to="'/orders/details/'+order.id " ><span>{{ order.id }} - {{ order.customer.firstName }} {{order.customer.lastName}}</span></router-link>
     </div>
   </div>
@@ -11,6 +12,7 @@ export default {
   data() {
     return {
       orders: [],
+      errors: null
     };
   },
 
@@ -23,7 +25,11 @@ export default {
 
                 this.orders = response.data.orders;
             } catch (error) {
-                console.log(error);
+              if (error.response && error.response.status === 403) {
+                this.errors = "Access Denied"
+              } else {
+                this.errors = error.message
+              }
             }
         },
     },

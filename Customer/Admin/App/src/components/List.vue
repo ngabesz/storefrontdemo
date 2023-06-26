@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div v-if="errors">{{this.errors}}</div>
     <div v-for="customer in customers" v-bind:key="customer.id">
       <span>{{ customer.id }} -- </span>
       <router-link :to="'/customers/details/'+customer.id " ><span>{{ customer.email }}</span></router-link>
@@ -12,6 +13,7 @@ export default {
   data() {
     return {
       customers: [],
+      errors: null
     };
   },
 
@@ -23,7 +25,11 @@ export default {
         );
         this.customers = response.data;
       } catch (error) {
-        console.log(error);
+        if (error.response && error.response.status === 403) {
+          this.errors = "Access Denied"
+        } else {
+          this.errors = error.message
+        }
       }
     },
   },

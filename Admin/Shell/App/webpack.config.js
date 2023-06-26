@@ -25,6 +25,7 @@ module.exports = env => ({
       }
     ]
   },
+  target: 'web',
   devServer: {
     port: 5000,
     host: '0.0.0.0',

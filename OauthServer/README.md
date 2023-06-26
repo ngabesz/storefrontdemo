@@ -20,21 +20,10 @@ A bundle tartalmazza a szükséges táblákat, amiket létre kell hoznod
 
 Futtatnod kell ezt a parancsot a containeren belül:
 
-```docker exec -it oauth_server_ngnix_php /bin/sh```
-
-
+```docker exec -it -u root oauth_server_ngnix_php /bin/sh```
 
 majd ```bin/console doctrine:schema:update --force``` a projekt mappában
 
-Nem mélyedtem bele az alpine-ba, de az a workaorund, hogy:
-
-- a Dockerfile-ba kikomizod a ```USER nobody``` sort
-- újra buildeled a projektet
-- belépsz és lefuttatod a táblák kreálássát
-- Visszarakod ```USER nobody``` sort
-- Újrabuildelsz.
-
-Azért csináljuk h a root jogsi megmaradjon, de ezt akinek van affinitása, megcsinálhatná
 
 Ha ez megvan, mind1, hogy hol, de futtasd le a ```bash keygen.sh``` parancsot, hogy legyen private és public key-ed a jwt token generálásához.
 

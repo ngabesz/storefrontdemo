@@ -34,3 +34,6 @@ services:
             - name: messenger.message_handler
               bus: command.bus
               handles: App\Application\Order\List\ListOrderFilteredQuery
+
+    App\Presentation\Api\Security\Jwt\FilesystemPublicKeyProvider:
+        arguments: [ '%env(resolve:JWT_PUBLIC_KEY_PATH)%' ]

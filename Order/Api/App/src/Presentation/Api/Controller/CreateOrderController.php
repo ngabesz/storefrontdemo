@@ -4,6 +4,7 @@ namespace App\Presentation\Api\Controller;
 
 use App\Application\Order\Create\CreateOrderCommand;
 use App\Domain\Order\Order;
+use App\Presentation\Api\Security\Symfony\Voter\OrderAccessTokenVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\HandleTrait;
@@ -19,8 +20,11 @@ class CreateOrderController extends AbstractController
         $this->messageBus = $messageBus;
     }
 
+
     public function index(Request $request)
     {
+        $this->denyAccessUnlessGranted(OrderAccessTokenVoter::ORDER_WRITE, $request);
+
         try {
             $checkoutId = json_decode($request->getContent(), true)['checkoutId'];
         } catch (Throwable $throwable) {
