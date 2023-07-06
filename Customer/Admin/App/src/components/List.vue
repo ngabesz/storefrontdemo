@@ -1,9 +1,9 @@
 <template>
   <div>
     <div v-if="errors">{{this.errors}}</div>
-    <div v-for="customer in customers" v-bind:key="customer.id">
+    <div v-else v-for="customer in customers" v-bind:key="customer.id">
       <span>{{ customer.id }} -- </span>
-      <router-link :to="'/customers/details/'+customer.id " ><span>{{ customer.email }}</span></router-link>
+      <router-link :to="'/customers/' + customer.id + '/details'" ><span>{{ customer.email }}</span></router-link>
     </div>
   </div>
 </template>
@@ -19,18 +19,18 @@ export default {
 
   methods: {
     async getData() {
-      try {
-        const response = await this.$http.get(
+        await this.$http.get(
             "http://localhost:8090/customer/api/customers"
-        );
-        this.customers = response.data;
-      } catch (error) {
-        if (error.response && error.response.status === 403) {
-          this.errors = "Access Denied"
-        } else {
-          this.errors = error.message
-        }
-      }
+        ).then((response) => {
+          this.customers = response.data;
+        }).catch( (error) => {
+          if (error.response && error.response.status === 403) {
+            this.errors = "Access Denied"
+          } else {
+            this.errors = error.message
+          }
+
+        });
     },
   },
 

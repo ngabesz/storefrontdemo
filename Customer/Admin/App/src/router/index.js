@@ -3,6 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import CustomerList from "../components/List.vue";
 import CustomerDetail from "../components/Detail.vue";
+import CustomerEdit from "../components/Edit.vue";
 
 
 
@@ -14,8 +15,12 @@ const routes = [
         component: CustomerList
     },
     {
-        path: '/customers/details/:id',
+        path: '/customers/:id/details',
         component: CustomerDetail
+    },
+    {
+        path: '/customers/:id/details/edit',
+        component: CustomerEdit
     },
 ];
 

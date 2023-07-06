@@ -25,6 +25,11 @@ module.exports = app => {
     next();
   });
 
+  router.post("/:id", function(req, res, next) {
+    req.requiredScopes = ["customer_write"];
+    next();
+  });
+
   router.put("/:id", function(req, res, next) {
     req.requiredScopes = ["customer_write"];
     next();
@@ -36,6 +41,8 @@ module.exports = app => {
   });
 
   router.post("/", auth, customers.create);
+
+  router.post("/:id", auth, customers.update);
 
   router.get("/", auth, customers.findAll);
 

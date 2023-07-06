@@ -40,11 +40,11 @@ axiosApiInstance.interceptors.response.use((response) => {
     return response
 }, async function (error) {
 
-    auth$.next({
-        sessionToken: null,
-        error: "Invalid user or password",
-        pending: false,
-    });
+    // auth$.next({
+    //     sessionToken: null,
+    //     error: "Invalid user or password",
+    //     pending: false,
+    // });
 
     return Promise.reject(error);
 });

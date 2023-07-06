@@ -52,6 +52,11 @@ export default {
     Logout: function() {
       logout()
     }
+  },
+  watch: {
+    '$route' (to, from) {
+      console.log('Route changed from ' + from.path + ' to ' + to.path);
+    }
   }
 };
 </script>

@@ -8,6 +8,9 @@
       Name: {{ customer.firstname }} {{ customer.lastname }} <br/>
       Email: {{ customer.email }} <br/>
     </p>
+    <p id="links">
+      <router-link :to="'/customers/' + customer.id + '/details/edit'" >Edit</router-link>
+    </p>
   </div>
 </template>
 
