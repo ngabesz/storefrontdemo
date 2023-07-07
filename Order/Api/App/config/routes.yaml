@@ -2,13 +2,19 @@ create_order:
     path: /api/orders
     controller: App\Presentation\Api\Controller\CreateOrderController::index
     methods:    [POST]
+    defaults:
+        scope: order_write
 
 list_orders:
     path: /api/orders
     controller: App\Presentation\Api\Controller\ListOrderController::indexAction
     methods: [ GET ]
+    defaults:
+        scope: order_read
 
 get_order:
     path: /api/orders/{id}
     controller: App\Presentation\Api\Controller\ListOrderController::getAction
     methods: [ GET ]
+    defaults:
+        scope: order_read

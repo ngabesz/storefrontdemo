@@ -71,13 +71,16 @@ class HttpCheckoutRepository implements CheckoutRepositoryInterface
         $checkout->setCustomer($customer);
         return $checkout;
     }
+
     public function addShippingAddress(string $checkoutId, Address $address): Checkout
     {
         return new Checkout();
     }
+
     public function addPaymentAddress(Address $address): Checkout{
         return new Checkout();
     }
+
     public function addShippingMethod(ShippingMethod $shippingMethod): Checkout{
         $response = $this->client->post($this->url, [
             'headers' => [
@@ -98,6 +101,7 @@ class HttpCheckoutRepository implements CheckoutRepositoryInterface
         $checkout->setShippingMethod($shippingMethod);
         return $checkout;
     }
+
     public function addPaymentMethod(string $checkoutId, string $paymentMethodId): Checkout{
         $response = $this->client->post($this->url . '/' . $checkoutId, [
             'headers' => [
@@ -118,9 +122,10 @@ class HttpCheckoutRepository implements CheckoutRepositoryInterface
         $checkout->setPaymentMethode($shippingMethod);
         return $checkout;
     }
+
     public function confirmCheckout(string $checkoutId): Checkout{
         try {
-            $response = $this->client->post($this->url . "/" . $checkoutId . "confirm", [
+            $response = $this->client->post($this->url . "/" . $checkoutId . "/confirm", [
                 'headers' => [
                     'Content-Type' => 'application/json'
                 ],
@@ -144,10 +149,13 @@ class HttpCheckoutRepository implements CheckoutRepositoryInterface
         return $checkout;
     }
 
-    public function addCheckoutTotal(CheckoutTotal $checkoutTotal): Checkout{
+    public function addCheckoutTotal(CheckoutTotal $checkoutTotal): Checkout
+    {
         return new Checkout();
     }
-    public function getCheckout(string $checkoutId): ?Checkout{
+
+    public function getCheckout(string $checkoutId): ?Checkout
+    {
         $response = $this->client->get($this->url.'/get', [
             'headers' => [
                 'Content-Type' => 'application/json',

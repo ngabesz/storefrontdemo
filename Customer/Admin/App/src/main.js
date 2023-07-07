@@ -4,6 +4,9 @@ import singleSpaVue from 'single-spa-vue';
 
 import App from './App.vue';
 import router from './router';
+import VueFormulate from '@braid/vue-formulate'
+
+Vue.use(VueFormulate)
 
 import { axiosApiInstance} from 'admin-shared';
 
