@@ -34,6 +34,12 @@ services:
     App\Domain\Api\ShippingApiInterface: '@App\Infrastructure\Adapter\ShippingApi\ShippingApi'
     App\Domain\Api\PaymentApiInterface: '@App\Infrastructure\Adapter\PaymentApi\PaymentApi'
 
+    App\Application\Example\ExampleHandler:
+      tags:
+        - name: messenger.message_handler
+          bus: command.bus
+          handles: App\Application\Example\ExampleQuery
+
     App\Application\CreateCheckout\CreateCheckoutHandler:
         tags:
             - name: messenger.message_handler
@@ -51,6 +57,18 @@ services:
         - name: messenger.message_handler
           bus: command.bus
           handles: App\Application\SaveShippingAddress\SaveShippingAddressCommand
+
+    App\Application\SavePaymentMethod\SavePaymentMethodHandler:
+      tags:
+        - name: messenger.message_handler
+          bus: command.bus
+          handles: App\Application\SavePaymentMethod\SavePaymentMethodCommand
+
+    App\Application\SaveShippingMethod\SaveShippingMethodHandler:
+      tags:
+        - name: messenger.message_handler
+          bus: command.bus
+          handles: App\Application\SaveShippingMethod\SaveShippingMethodCommand
 
 
     App\Application\SaveBillingAddress\SaveBillingAddressHandler:
