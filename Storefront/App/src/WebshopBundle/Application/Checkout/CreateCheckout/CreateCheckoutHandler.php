@@ -14,7 +14,8 @@ class CreateCheckoutHandler
         $this->checkoutRepository = $checkoutRepositoryInterface;
     }
 
-    public function __invoke(CreateCheckoutQuery $createCheckoutQuery){
+    public function __invoke(CreateCheckoutQuery $createCheckoutQuery): CreateCheckoutOutput
+    {
         $checkout = $this->checkoutRepository->createCheckout($createCheckoutQuery->getCartId());
         return new CreateCheckoutOutput($checkout->getId());
     }

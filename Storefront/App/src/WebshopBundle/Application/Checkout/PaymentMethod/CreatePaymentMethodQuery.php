@@ -2,8 +2,6 @@
 
 namespace App\WebshopBundle\Application\Checkout\PaymentMethod;
 
-use App\WebshopBundle\Domain\Model\Checkout\Dto\PaymentMethod;
-
 class CreatePaymentMethodQuery
 {
     private string $checkoutId;
@@ -17,7 +15,7 @@ class CreatePaymentMethodQuery
 
     public function getPaymentMethodId(): string
     {
-        return $this->paymentMethodid;
+        return $this->paymentMethodId;
     }
 
     public function getCheckoutId(): string

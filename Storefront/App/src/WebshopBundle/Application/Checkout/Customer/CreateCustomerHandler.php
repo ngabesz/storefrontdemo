@@ -16,6 +16,9 @@ class CreateCustomerHandler
     }
 
     public function __invoke(CreateCustomerCommand $createCustomerQuery){
-        return $this->checkoutRepository->addCustomer($createCustomerQuery->getCustomer());
+        return $this->checkoutRepository->addCustomer(
+            $createCustomerQuery->getCheckoutId(),
+            $createCustomerQuery->getCustomer()
+        );
     }
 }

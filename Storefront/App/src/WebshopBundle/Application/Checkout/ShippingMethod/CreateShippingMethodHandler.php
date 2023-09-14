@@ -15,6 +15,9 @@ class CreateShippingMethodHandler
     }
 
     public function __invoke(CreateShippingMethodQuery $createShippingMethodQuery){
-        return $this->checkoutRepository->addShippingMethod($createShippingMethodQuery->getShippingMethod());
+        return $this->checkoutRepository->addShippingMethod(
+            $createShippingMethodQuery->getCheckoutId(),
+            $createShippingMethodQuery->getShippingMethodId()
+        );
     }
 }

@@ -90,12 +90,22 @@ services:
             - name: messenger.message_handler
               handles: App\WebshopBundle\Application\Payment\GetPayment\GetPaymentQuery
 
-    App\WebshopBundle\Application\Checkout\GetCheckout\GetCheckoutHandler:
-        tags:
-            - name: messenger.message_handler
-              handles: App\WebshopBundle\Application\Checkout\GetCheckout\GetCheckoutHandler
-
     App\WebshopBundle\Application\Checkout\ConfirmCheckout\ConfirmCheckoutHandler:
         tags:
             -   name: messenger.message_handler
                 handles: App\WebshopBundle\Application\Checkout\ConfirmCheckout\ConfirmCheckoutCommand
+
+    App\WebshopBundle\Application\Checkout\AddShippingAddress\AddShippingAddressHandler:
+        tags:
+            -   name: messenger.message_handler
+                handles: App\WebshopBundle\Application\Checkout\AddShippingAddress\AddShippingAddressCommand
+
+    App\WebshopBundle\Application\Checkout\AddBillingAddress\AddBillingAddressHandler:
+        tags:
+            -   name: messenger.message_handler
+                handles: App\WebshopBundle\Application\Checkout\AddBillingAddress\AddBillingAddressCommand
+
+    App\WebshopBundle\Application\Checkout\GetCheckout\GetCheckoutHandler:
+        tags:
+            -   name: messenger.message_handler
+                handles: App\WebshopBundle\Application\Checkout\GetCheckout\GetCheckoutQuery

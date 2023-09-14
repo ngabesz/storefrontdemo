@@ -23,11 +23,12 @@ class PaymentApi implements PaymentApiInterface
     {
         $response = $this->client->request('GET', "/payment/api/paymentMethod/list/$externalPaymentMethodId");
         $data = json_decode($response->getContent(), true);
+        //TODO $data['paymentMethods'][0]['cost'] helyett kiválasztani a megfelelő paymentMethod-ot
         return new PaymentMethod(
             $this->entityIdGenerator->generate(),
             $externalPaymentMethodId,
-            $data['name'],
-            $data['cost']
+            $data['paymentMethods'][0]['name'],
+            $data['paymentMethods'][0]['fee']
         );
     }
 }

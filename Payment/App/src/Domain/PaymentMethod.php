@@ -10,14 +10,14 @@ class PaymentMethod
     private int $fee;
     private bool $isEnabled;
 
-    private array $availableShippingMethods;
+    private $availableShippingMethods;
 
     public function __construct(
         PaymentMethodId $id,
         string $name,
         string $description,
         int $fee,
-        array $availableShippingMethods,
+        $availableShippingMethods,
         $isEnabled
     ) {
         $this->id = $id;
@@ -94,7 +94,7 @@ class PaymentMethod
     /**
      * @return array
      */
-    public function getAvailableShippingMethods(): array
+    public function getAvailableShippingMethods()
     {
         return $this->availableShippingMethods;
     }

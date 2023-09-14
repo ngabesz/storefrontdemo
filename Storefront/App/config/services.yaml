@@ -49,16 +49,12 @@ services:
 
     App\WebshopBundle\Infrastructure\Checkout\HttpCheckoutRepository:
         arguments:
-            - 'http://storefront_nginx/dummy'
+            - 'http://api_gateway_nginx:8080/checkout/api'
+
     App\WebshopBundle\Infrastructure\Shipping\HttpShippingRepository:
         arguments:
-            - 'http://storefront_nginx/dummy/shipping'
+            - 'http://api_gateway_nginx:8080/shipping/shipping-methods'
 
     App\WebshopBundle\Infrastructure\Payment\HttpPaymentRepository:
         arguments:
-            - 'http://storefront_nginx/dummy/payment'
-
-
-
-
-
+            - 'http://api_gateway_nginx:8080/payment/api'

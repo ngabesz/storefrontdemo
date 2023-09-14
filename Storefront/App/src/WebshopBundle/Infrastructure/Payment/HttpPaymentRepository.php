@@ -19,8 +19,7 @@ class HttpPaymentRepository implements PaymentRepositoryInterface
 
     public function getPaymentMethodsByShippingMethod(string $shippingMethod): Payment
     {
-
-        $response = $this->client->get($this->url, [
+        $response = $this->client->get($this->url. '/paymentMethod/list/' . $shippingMethod, [
             'headers' => [
                 'Content-Type' => 'application/json',
                 //'Authorization' => 'Bearer ' . $accessToken->getToken()
@@ -30,13 +29,12 @@ class HttpPaymentRepository implements PaymentRepositoryInterface
         ]);
 
         $response = json_decode($response->getBody()->getContents(), true);
-
         /**
          * @var PaymentMethod[] $paymentMethods
          */
         $paymentMethods = [];
 
-        foreach ($response as $paymentMethod) {
+        foreach ($response['paymentMethods'] as $paymentMethod) {
             $createdPaymentMethod = new PaymentMethod(
                 $paymentMethod['id'],
                 $paymentMethod['name'],

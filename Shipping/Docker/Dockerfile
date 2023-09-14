@@ -1,10 +1,10 @@
 FROM trafex/php-nginx:latest
 
-#COPY nginx.conf /etc/nginx/nginx.conf
-#COPY --chown=nobody . /var/www/html
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 USER root
 
+RUN apk update
 RUN apk add --no-cache \
   git \
   php81-iconv \
@@ -15,7 +15,6 @@ RUN apk add --no-cache \
   php81-pecl-xdebug\
   php81-posix
 
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-
 USER nobody
+
 #RUN composer install --optimize-autoloader --no-interaction --no-progress

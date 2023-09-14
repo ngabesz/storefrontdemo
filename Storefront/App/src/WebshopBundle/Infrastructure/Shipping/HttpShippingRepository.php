@@ -2,11 +2,13 @@
 
 namespace App\WebshopBundle\Infrastructure\Shipping;
 
+use App\WebshopBundle\Domain\Exception\DomainException;
 use App\WebshopBundle\Domain\Model\Shipping\Dto\ShippingLane;
 use App\WebshopBundle\Domain\Model\Shipping\Dto\ShippingMethod;
 use App\WebshopBundle\Domain\Model\Shipping\Shipping;
 use App\WebshopBundle\Domain\Model\Shipping\ShippingRepositoryInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class HttpShippingRepository implements ShippingRepositoryInterface
 {
@@ -18,25 +20,32 @@ class HttpShippingRepository implements ShippingRepositoryInterface
     {
     }
 
+    /**
+     * @throws DomainException
+     */
     public function getShippingMethodsByCartTotal(float $cartTotal): Shipping
     {
-        $response = $this->client->get($this->url, [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                //'Authorization' => 'Bearer ' . $accessToken->getToken()
-            ],
-            'json' => ['cartTotal' => $cartTotal],
-            'verify' => 0
-        ]);
+        try {
+            $response = $this->client->get($this->url, [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    //'Authorization' => 'Bearer ' . $accessToken->getToken()
+                ],
+                'json' => ['cartTotal' => $cartTotal],
+                'verify' => 0
+            ]);
 
-        $response = json_decode($response->getBody()->getContents(), true);
+            $response = json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            throw new DomainException($e->getMessage());
+        }
 
         /**
          * @var ShippingMethod[] $shippingMethods
          */
         $shippingMethods = [];
 
-        foreach ($response as $shippingMethod) {
+        foreach ($response['shippingMethods'] as $shippingMethod) {
             /**
              * @var ShippingLane[] $shippingLanes
              */
