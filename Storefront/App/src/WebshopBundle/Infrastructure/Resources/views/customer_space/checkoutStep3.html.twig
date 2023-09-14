@@ -40,10 +40,10 @@
         <a href="{{ path('app_customer_space') }}">Back to catalog</a>
     </div>
 
-    <form action="{{ path('checkout') }}" method="post">
+    <form action="{{ path('addPaymentMethod') }}" method="post">
         <h2>Payment methods</h2>
         {% for paymentMethod in paymentMethods %}
-            <input type="radio" id="html" name="paymentMethod" value="{{ paymentMethod }}">
+            <label><input type="radio" name="paymentMethodId" value="{{ paymentMethod.id }}"> {{ paymentMethod.name }}<br><small>{{ paymentMethod.description }}</small></label>
         {% endfor %}
         <br>
 

@@ -14,7 +14,8 @@ class GetPaymentHandler
         $this->paymentRepository = $paymentRepository;
     }
 
-    public function __invoke(GetPaymentQuery $getPaymentQuery){
+    public function __invoke(GetPaymentQuery $getPaymentQuery)
+    {
         $paymentMethods = $this->paymentRepository->getPaymentMethodsByShippingMethod($getPaymentQuery->getShippingId());
         return new GetPaymentOutput($paymentMethods->getPaymentMethods());
     }

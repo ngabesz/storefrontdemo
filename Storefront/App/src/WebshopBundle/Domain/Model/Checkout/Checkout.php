@@ -14,9 +14,9 @@ class Checkout
     private string $status;
     private Customer $customer;
     private Address $shippingAddress;
-    private Address $paymentAddress;
+    private Address $billingAddress;
     private ShippingMethod $shippingMethod;
-    private PaymentMethod $paymentMethode;
+    private PaymentMethod $paymentMethod;
     private CheckoutTotal $checkoutTotal;
 
     public function getId(): string
@@ -59,14 +59,14 @@ class Checkout
         $this->shippingAddress = $shippingAddress;
     }
 
-    public function getPaymentAddress(): Address
+    public function getBillingAddress(): Address
     {
-        return $this->paymentAddress;
+        return $this->billingAddress;
     }
 
-    public function setPaymentAddress(Address $paymentAddress): void
+    public function setBillingAddress(Address $billingAddress): void
     {
-        $this->paymentAddress = $paymentAddress;
+        $this->billingAddress = $billingAddress;
     }
 
     public function getShippingMethod(): ShippingMethod
@@ -79,14 +79,14 @@ class Checkout
         $this->shippingMethod = $shippingMethod;
     }
 
-    public function getPaymentMethode(): PaymentMethod
+    public function getPaymentMethod(): PaymentMethod
     {
-        return $this->paymentMethode;
+        return $this->paymentMethod;
     }
 
-    public function setPaymentMethode(PaymentMethod $paymentMethode): void
+    public function setPaymentMethod(PaymentMethod $paymentMethod): void
     {
-        $this->paymentMethode = $paymentMethode;
+        $this->paymentMethod = $paymentMethod;
     }
 
     public function getCheckoutTotal(): CheckoutTotal

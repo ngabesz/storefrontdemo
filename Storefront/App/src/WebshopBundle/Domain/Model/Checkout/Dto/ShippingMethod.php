@@ -6,13 +6,13 @@ class ShippingMethod
 {
     private string $shippingMethodId;
     private string $shippingMethodName;
-    private float $shippingMethodFee;
+    private float $shippingFee;
 
-    public function __construct(string $shippingMethodId, string $shippingMethodName, float $shippingMethodFee)
+    public function __construct(string $shippingMethodId, string $shippingMethodName, float $shippingFee)
     {
         $this->shippingMethodId = $shippingMethodId;
         $this->shippingMethodName = $shippingMethodName;
-        $this->shippingMethodFee = $shippingMethodFee;
+        $this->shippingFee = $shippingFee;
     }
 
     public function getShippingMethodId(): string
@@ -25,8 +25,8 @@ class ShippingMethod
         return $this->shippingMethodName;
     }
 
-    public function getShippingMethodFee(): float
+    public function getShippingFee(): float
     {
-        return $this->shippingMethodFee;
+        return $this->shippingFee;
     }
 }

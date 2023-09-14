@@ -11,7 +11,7 @@ class GetPaymentQuery
         $this->shippingId = $shippingId;
     }
 
-    public function getShippingId(): float
+    public function getShippingId(): string
     {
         return $this->shippingId;
     }

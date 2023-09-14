@@ -2,17 +2,19 @@
 
 namespace App\WebshopBundle\Application\Checkout\Customer;
 
-
-
 use App\WebshopBundle\Domain\Model\Checkout\Dto\Customer;
 
 class CreateCustomerCommand
 {
-    private Customer $customer;
+    public function __construct(
+        private string $checkoutId,
+        private Customer $customer
+    ) {
+    }
 
-    public function __construct(Customer $customer)
+    public function getCheckoutId(): string
     {
-        $this->customer = $customer;
+        return $this->checkoutId;
     }
 
     public function getCustomer(): Customer

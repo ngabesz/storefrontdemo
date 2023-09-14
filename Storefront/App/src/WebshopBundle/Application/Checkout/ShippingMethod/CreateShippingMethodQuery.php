@@ -2,19 +2,21 @@
 
 namespace App\WebshopBundle\Application\Checkout\ShippingMethod;
 
-use App\WebshopBundle\Domain\Model\Checkout\Dto\ShippingMethod;
-
 class CreateShippingMethodQuery
 {
-    private ShippingMethod $shippingMethod;
-
-    public function __construct(ShippingMethod $shippingMethod)
-    {
-        $this->shippingMethod = $shippingMethod;
+    public function __construct(
+        private string $checkoutId,
+        private string $shippingMethodId
+    ) {
     }
 
-    public function getShippingMethod(): ShippingMethod
+    public function getCheckoutId(): string
     {
-        return $this->shippingMethod;
+        return $this->checkoutId;
+    }
+
+    public function getShippingMethodId(): string
+    {
+        return $this->shippingMethodId;
     }
 }
