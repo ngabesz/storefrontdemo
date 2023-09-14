@@ -25,6 +25,8 @@ class ConfirmCheckoutHandler
         $checkout->setCheckoutStatus(CheckoutStatus::Completed);
         $this->checkoutRepository->updateCheckout($checkout);
 
+        //TODO save order
+
         return $checkout;
     }
 }
