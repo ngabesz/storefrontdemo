@@ -60,7 +60,7 @@ services:
       - ./Checkout/Docker/php.ini:/etc/php81/conf.d/settings.ini
       - ./Checkout/Docker/nginx.conf:/etc/nginx/conf.d/server.conf
     ports:
-      - 8506:8507
+      - 8507:8508
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
