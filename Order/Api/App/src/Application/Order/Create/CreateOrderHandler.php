@@ -21,7 +21,7 @@ class CreateOrderHandler
     {
         $checkout = $this->checkoutAdapter->getCheckoutById($createOrderCommand->getCheckoutId());
 
-        if ($checkout->getStatus() !== 'COMPLETED') {
+        if (strtoupper($checkout->getStatus()) !== 'COMPLETED') {
             throw new CreateOrderException('checkout status is not COMPLETED');
         }
 

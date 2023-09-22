@@ -140,8 +140,9 @@ class CheckoutController extends AbstractController
         return new Response($jsonresponse);
     }
 
-    public function confirm(string $checkoutId)
+    public function confirm(string $checkoutId, Request $request)
     {
+        $post = json_decode($request->getContent());
         $command = new ConfirmCheckoutCommand($checkoutId);
         $response = $this->handle($command);
 
