@@ -4,7 +4,9 @@ namespace App\Infrastructure\Adapter\PaymentApi;
 
 
 use App\Domain\Api\PaymentApiInterface;
+use App\Domain\Customer;
 use App\Domain\PaymentMethod;
+use App\Domain\PaymentStatus;
 use App\Domain\Shared\EntityIdGeneratorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -30,5 +32,28 @@ class PaymentApi implements PaymentApiInterface
             $data['paymentMethods'][0]['name'],
             $data['paymentMethods'][0]['fee']
         );
+    }
+
+    public function createPaymentMethod(string $externalPaymentMethodId, Customer $customer, float $cartTotal): PaymentStatus
+    {
+        $response = $this->client->request('POST', '/payment/api/payment/initiate', [
+                'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'json' => [
+                'paymentMethodId' => $externalPaymentMethodId,
+                'customer' => [
+                    'customerId' => $customer->getCustomerId()->getValue(),
+                    'email' => $customer->getEmail(),
+                    'firstName' => $customer->getFirstName(),
+                    'lastName' => $customer->getLastName(),
+                    'phone' => $customer->getPhone()
+                ],
+                'amount' => $cartTotal
+            ]
+        ]);
+        $data = json_decode($response->getContent(), true);
+
+        return new PaymentStatus($data['status'] ?? 'error');
     }
 }
