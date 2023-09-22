@@ -43,7 +43,7 @@
     <form action="{{ path('addPaymentMethod') }}" method="post">
         <h2>Payment methods</h2>
         {% for paymentMethod in paymentMethods %}
-            <label><input type="radio" name="paymentMethodId" value="{{ paymentMethod.id }}"> {{ paymentMethod.name }}<br><small>{{ paymentMethod.description }}</small></label>
+            <label><input type="radio" name="paymentMethodId" value="{{ paymentMethod.id }}"> {{ paymentMethod.name }}<br><small>{{ paymentMethod.description }}</small></label><br>
         {% endfor %}
         <br>
 
