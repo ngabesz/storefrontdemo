@@ -51,6 +51,7 @@ class ShippingMethodRepository extends ServiceEntityRepository implements Shippi
             $shippingLanes = $shippingMethod->getShippingLanes();
             foreach ($shippingLanes as $shippingLane) {
                 if ($shippingLane->getMinGrossPrice() <= $cartTotal && $shippingLane->getMaxGrossPrice() >= $cartTotal) {
+                    $shippingMethod->setShippingLanes([$shippingLane]);
                     $filteredShippingMethods[] = $shippingMethod;
                     break;
                 }
